@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'character.dart';
+import 'box.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,13 +10,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int playerPosition = 25;
-  int boxPosition = 32;
+  Character character = Character();
+  Box box = Box();
+  List<Box> boxes = [
+    Box(position: 45),
+    Box(position: 17),
+  ];
 
+
+  bool isHere(int index) {
+    for (Box box in boxes) {
+      if (box.position == index) {
+        return true;
+      }
+    }
+    return false;
+  }
   Color playerOrBox(int index) {
-    if (index == playerPosition) {
+    if (index == character.position) {
       return Colors.pink;
-    } else if (index == boxPosition) {
+    } else if (isHere(index)) {
       return Colors.white;
     } else {
       return Colors.teal.shade400;
@@ -33,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ElevatedButton(
             onPressed: () {
               setState(() {
-                playerPosition = 25;
-                boxPosition = 32;
+                character.position = 26;
+                box.position = 32;
               });
             },
             child: const Text('Restart'),
@@ -67,13 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        if (playerPosition - 7 >= 0 &&
-                            playerPosition - 7 != boxPosition) {
-                          playerPosition -= 7;
-                        } else if (playerPosition - 7 == boxPosition &&
-                            boxPosition - 7 >= 0) {
-                          boxPosition -= 7;
-                          playerPosition -= 7;
+                        
+                        if (character.position - 7 != box.position) {
+                          character.moveUp();
+                        } else {
+                          box.moveUp();
                         }
                       });
                     },
@@ -84,13 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            if (playerPosition - 1 >= 0 &&
-                                playerPosition - 1 != boxPosition) {
-                              playerPosition--;
-                            } else if (playerPosition - 1 == boxPosition &&
-                                boxPosition - 1 >= 0) {
-                              boxPosition--;
-                              playerPosition--;
+                            if (character.position - 1 != box.position) {
+                              character.moveLeft();
+                            } else {
+                              box.moveLeft();
                             }
                           });
                         },
@@ -98,13 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            if (playerPosition + 1 < 70 &&
-                                playerPosition + 1 != boxPosition) {
-                              playerPosition++;
-                            } else if (playerPosition + 1 == boxPosition &&
-                                boxPosition + 1 < 70) {
-                              boxPosition++;
-                              playerPosition++;
+                            if (character.position + 1 != box.position) {
+                              character.moveRight();
+                            } else {
+                              box.moveRight();
                             }
                           });
                         },
@@ -114,13 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        if (playerPosition + 7 < 70 &&
-                            playerPosition + 7 != boxPosition) {
-                          playerPosition += 7;
-                        } else if (playerPosition + 7 == boxPosition &&
-                            boxPosition + 7 < 70) {
-                          boxPosition += 7;
-                          playerPosition += 7;
+                        if (character.position + 7 != box.position) {
+                          character.moveDown();
+                        } else {
+                          box.moveDown();
                         }
                       });
                     },
