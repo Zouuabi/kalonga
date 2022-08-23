@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'character.dart';
+
 import 'box.dart';
+import 'character.dart';
+import 'constants.dart';
 import 'levels.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,10 +13,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int globalIndex = 2;
+  int globalIndex = 0;
+  List<Box> boxes = [];
   late Character character;
 
-  List<Box> boxes = [];
   bool isHere(int index) {
     for (Box box in boxes) {
       if (box.position == index) {
@@ -23,39 +25,46 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return false;
   }
-  Color gameState(int index) {
-    Color boxColor = const Color(0xffD6D2D2);
+
+  Image? gameState(int index) {
+    Image? box;
     if (index == character.position) {
-      boxColor = const Color(0xffe56b6f);
-    } else if (level[globalIndex].map.contains(index)) {
-      boxColor = const Color(0xff6d597a);
+      box = Image.asset('assets/images/monkey.png');
     } else if (isHere(index)) {
-      boxColor = const Color(0xffeaac8b);
+      box = Image.asset('assets/images/banana.png');
     } else if (level[globalIndex].targetPlaces.contains(index)) {
-      boxColor = const Color(0xffb56576);
+      box = Image.asset('assets/images/hole (1).png');
+    } else {
+      box = null;
     }
     for (int i = 0; i < boxes.length; i++) {
       for (int j = 0; j < level[globalIndex].targetPlaces.length; j++) {
         if (boxes[i].position == level[globalIndex].targetPlaces[j] &&
             index == level[globalIndex].targetPlaces[j]) {
-          boxColor = const Color.fromARGB(255, 107, 54, 64);
+          box = Image.asset(
+            'assets/images/ba.gif',
+          );
         }
       }
     }
-    return boxColor;
+    return box;
+  }
+
+  void updateGame(int index) {
+    boxes.clear();
+    character = Character(
+      position: level[globalIndex].characterPosition,
+      border: level[globalIndex].map,
+    );
+    for (int pos in level[globalIndex].boxPositions) {
+      boxes.add(Box(position: pos, border: level[globalIndex].map));
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    character = Character(
-      position: level[globalIndex].characterPosition,
-      border: level[globalIndex].map,
-    );
-
-    for (int pos in level[globalIndex].boxPositions) {
-      boxes.add(Box(position: pos, border: level[globalIndex].map));
-    }
+    updateGame(globalIndex);
   }
 
   @override
@@ -64,10 +73,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Container(
+              margin: const EdgeInsets.only(top: 30),
+              child: Text(
+                'Level $globalIndex',
+                style: const TextStyle(
+                    color: Colors.yellowAccent,
+                    fontSize: 30,
+                    fontFamily: 'Silkscreen'),
+              )),
           Expanded(
-              flex: 5,
+              flex: 6,
               child: Container(
-                padding: const EdgeInsets.only(top: 100),
+                padding: EdgeInsets.only(top: size.height * 0.04),
                 width: size.width * 0.9,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
@@ -78,136 +96,150 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: gameState(index),
-                      ),
+                          color: level[globalIndex].map.contains(index)
+                              ? const Color(0xff4e4c67)
+                              : null,
+                          borderRadius: BorderRadius.circular(10)),
                       margin: const EdgeInsets.all(1),
-                      // child: Text(
-                      //   '$index',
-                      //   style: const TextStyle(color: Colors.teal),
-                      // ),
+                      child: gameState(index),
                     );
                   },
                 ),
               )),
           Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.all(0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  /// ****** Next Game
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            if (globalIndex > 1) {
-                              setState(() {
-                                globalIndex--;
-                              });
-                            }
-                          },
-                          child: const Text('Previous Level')),
-                      ElevatedButton(
-                          onPressed: () {
-                            if (globalIndex < level.length - 1) {
-                              setState(() {
-                                globalIndex++;
-                              });
-                            }
-                          },
-                          child: const Text('    Next Level    ')),
-                    ],
-                  ),
+            flex: 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        updateGame(globalIndex);
+                      });
+                    },
+                    child: const Text(
+                      'Restart',
+                      style: kButtonTextStyle,
+                    )),
 
-                  ///
-                  ///******  MOVE UP********
+                /// ****** Next Game
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          if (globalIndex > 0) {
+                            setState(() {
+                              globalIndex--;
 
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (!isHere(character.position - 9)) {
-                            character.moveUp();
-                          } else {
-                            for (Box box in boxes) {
-                              if (box.position == character.position - 9 &&
-                                  !isHere(box.position - 9)) {
-                                box.moveUp();
-                              }
+                              updateGame(globalIndex);
+                            });
+                          }
+                        },
+                        child: Text(
+                          'Previous Level',
+                          style: kButtonTextStyle.copyWith(fontSize: 16),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          if (globalIndex < level.length - 1) {
+                            setState(() {
+                              globalIndex++;
+
+                              updateGame(globalIndex);
+                            });
+                          }
+                        },
+                        child: const Text(
+                          ' Next Level ',
+                          style: kButtonTextStyle,
+                        )),
+                  ],
+                ),
+
+                ///
+                ///******  MOVE UP********
+
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (!isHere(character.position - 9)) {
+                          character.moveUp();
+                        } else {
+                          for (Box box in boxes) {
+                            if (box.position == character.position - 9 &&
+                                !isHere(box.position - 9)) {
+                              box.moveUp();
                             }
                           }
-                        });
-                      },
-                      child: const Icon(Icons.arrow_drop_up)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ///
-                      ///******  MOVE LEFT********
+                        }
+                      });
+                    },
+                    child: const Icon(Icons.arrow_drop_up)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ///
+                    ///******  MOVE LEFT********
 
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (!isHere(character.position - globalIndex)) {
-                                character.moveLeft();
-                              } else {
-                                for (Box box in boxes) {
-                                  if (box.position ==
-                                          character.position - globalIndex &&
-                                      !isHere(box.position - globalIndex)) {
-                                    box.moveLeft();
-                                  }
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            if (!isHere(character.position - 1)) {
+                              character.moveLeft();
+                            } else {
+                              for (Box box in boxes) {
+                                if (box.position == character.position - 1 &&
+                                    !isHere(box.position - 1)) {
+                                  box.moveLeft();
                                 }
-                              }
-                            });
-                          },
-                          child: const Icon(Icons.arrow_left)),
-                      const SizedBox(width: 100),
-
-                      ///******  MOVE RIGHT********
-
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (!isHere(character.position + globalIndex)) {
-                                character.moveRight();
-                              } else {
-                                for (Box box in boxes) {
-                                  if (box.position ==
-                                          character.position + globalIndex &&
-                                      !isHere(box.position + globalIndex)) {
-                                    box.moveRight();
-                                  }
-                                }
-                              }
-                            });
-                          },
-                          child: const Icon(Icons.arrow_right))
-                    ],
-                  ),
-
-                  ///******  MOVE DOWN********
-
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (!isHere(character.position + 9)) {
-                            character.moveDown();
-                          } else {
-                            for (Box box in boxes) {
-                              if (box.position == character.position + 9 &&
-                                  !isHere(box.position + 9)) {
-                                box.moveDown();
                               }
                             }
+                          });
+                        },
+                        child: const Icon(Icons.arrow_left)),
+                    const SizedBox(width: 100),
+
+                    ///******  MOVE RIGHT********
+
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            if (!isHere(character.position + 1)) {
+                              character.moveRight();
+                            } else {
+                              for (Box box in boxes) {
+                                if (box.position == character.position + 1 &&
+                                    !isHere(box.position + 1)) {
+                                  box.moveRight();
+                                }
+                              }
+                            }
+                          });
+                        },
+                        child: const Icon(Icons.arrow_right))
+                  ],
+                ),
+
+                ///******  MOVE DOWN********
+
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (!isHere(character.position + 9)) {
+                          character.moveDown();
+                        } else {
+                          for (Box box in boxes) {
+                            if (box.position == character.position + 9 &&
+                                !isHere(box.position + 9)) {
+                              box.moveDown();
+                            }
                           }
-                        });
-                      },
-                      child: const Icon(Icons.arrow_drop_down))
-                ],
-              ),
+                        }
+                      });
+                    },
+                    child: const Icon(Icons.arrow_drop_down))
+              ],
             ),
           ),
         ]),
