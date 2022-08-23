@@ -29,7 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Image? gameState(int index) {
     Image? box;
     if (index == character.position) {
-      box = Image.asset('assets/images/monkey.png');
+      box = Image.asset(
+        'assets/images/monkey.png',
+        fit: BoxFit.cover,
+      );
     } else if (isHere(index)) {
       box = Image.asset('assets/images/banana.png');
     } else if (level[globalIndex].targetPlaces.contains(index)) {
@@ -43,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             index == level[globalIndex].targetPlaces[j]) {
           box = Image.asset(
             'assets/images/ba.gif',
+            fit: BoxFit.cover,
           );
         }
       }
@@ -71,6 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    /// TODO: enable keyboard controls for web and desktop
+    /// TODO; enable auto next level 
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -142,9 +148,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             });
                           }
                         },
-                        child: Text(
-                          'Previous Level',
-                          style: kButtonTextStyle.copyWith(fontSize: 16),
+                        child: const Text(
+                          'Back',
+                          style: kButtonTextStyle,
                         )),
                     ElevatedButton(
                         onPressed: () {
@@ -157,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                         },
                         child: const Text(
-                          ' Next Level ',
+                          'Next',
                           style: kButtonTextStyle,
                         )),
                   ],
@@ -166,85 +172,95 @@ class _HomeScreenState extends State<HomeScreen> {
                 ///
                 ///******  MOVE UP********
 
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (!isHere(character.position - 9)) {
-                          character.moveUp();
-                        } else {
-                          for (Box box in boxes) {
-                            if (box.position == character.position - 9 &&
-                                !isHere(box.position - 9)) {
-                              box.moveUp();
-                            }
-                          }
-                        }
-                      });
-                    },
-                    child: const Icon(Icons.arrow_drop_up)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ///
-                    ///******  MOVE LEFT********
+                size.width > 380
+                    ? Container()
+                    : Column(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (!isHere(character.position - 9)) {
+                                    character.moveUp();
+                                  } else {
+                                    for (Box box in boxes) {
+                                      if (box.position ==
+                                              character.position - 9 &&
+                                          !isHere(box.position - 9)) {
+                                        box.moveUp();
+                                      }
+                                    }
+                                  }
+                                });
+                              },
+                              child: const Icon(Icons.arrow_drop_up)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ///
+                              ///******  MOVE LEFT********
 
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            if (!isHere(character.position - 1)) {
-                              character.moveLeft();
-                            } else {
-                              for (Box box in boxes) {
-                                if (box.position == character.position - 1 &&
-                                    !isHere(box.position - 1)) {
-                                  box.moveLeft();
-                                }
-                              }
-                            }
-                          });
-                        },
-                        child: const Icon(Icons.arrow_left)),
-                    const SizedBox(width: 100),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (!isHere(character.position - 1)) {
+                                        character.moveLeft();
+                                      } else {
+                                        for (Box box in boxes) {
+                                          if (box.position ==
+                                                  character.position - 1 &&
+                                              !isHere(box.position - 1)) {
+                                            box.moveLeft();
+                                          }
+                                        }
+                                      }
+                                    });
+                                  },
+                                  child: const Icon(Icons.arrow_left)),
+                              const SizedBox(width: 100),
 
-                    ///******  MOVE RIGHT********
+                              ///******  MOVE RIGHT********
 
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            if (!isHere(character.position + 1)) {
-                              character.moveRight();
-                            } else {
-                              for (Box box in boxes) {
-                                if (box.position == character.position + 1 &&
-                                    !isHere(box.position + 1)) {
-                                  box.moveRight();
-                                }
-                              }
-                            }
-                          });
-                        },
-                        child: const Icon(Icons.arrow_right))
-                  ],
-                ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (!isHere(character.position + 1)) {
+                                        character.moveRight();
+                                      } else {
+                                        for (Box box in boxes) {
+                                          if (box.position ==
+                                                  character.position + 1 &&
+                                              !isHere(box.position + 1)) {
+                                            box.moveRight();
+                                          }
+                                        }
+                                      }
+                                    });
+                                  },
+                                  child: const Icon(Icons.arrow_right))
+                            ],
+                          ),
 
-                ///******  MOVE DOWN********
+                          ///******  MOVE DOWN********
 
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (!isHere(character.position + 9)) {
-                          character.moveDown();
-                        } else {
-                          for (Box box in boxes) {
-                            if (box.position == character.position + 9 &&
-                                !isHere(box.position + 9)) {
-                              box.moveDown();
-                            }
-                          }
-                        }
-                      });
-                    },
-                    child: const Icon(Icons.arrow_drop_down))
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (!isHere(character.position + 9)) {
+                                    character.moveDown();
+                                  } else {
+                                    for (Box box in boxes) {
+                                      if (box.position ==
+                                              character.position + 9 &&
+                                          !isHere(box.position + 9)) {
+                                        box.moveDown();
+                                      }
+                                    }
+                                  }
+                                });
+                              },
+                              child: const Icon(Icons.arrow_drop_down)),
+                        ],
+                      )
               ],
             ),
           ),
