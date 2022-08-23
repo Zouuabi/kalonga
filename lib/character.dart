@@ -1,9 +1,46 @@
 class Character {
-  Character();
-  int position = 25;
-  List border = [6, 13, 20, 27, 34, 41, 48, 55, 62, 69];
+  Character({required this.position , required this.border});
+  int position;
+
+  List<int> border = [
+    2,
+    1,
+    8,
+    15,
+    22,
+    29,
+    36,
+    43,
+    42,
+    49,
+    56,
+    57,
+    58,
+    59,
+    66,
+    67,
+    68,
+    61,
+    54,
+    47,
+    40,
+    39,
+    38,
+    31,
+    24,
+    25,
+    26,
+    27,
+    20,
+    13,
+    12,
+    11,
+    10,
+    3
+  ];
   bool isOnBorder(position) {
-    for (int i = 0; i < 10; ++i) {
+    int borderLength = border.length;
+    for (int i = 0; i < borderLength; ++i) {
       if (position == border[i]) {
         return true;
       }
@@ -12,26 +49,26 @@ class Character {
   }
 
   void moveLeft() {
-    if (position - 1 >= 0 && (position % 7) != 0) {
+    if (isOnBorder(position - 1) == false) {
       position--;
     }
   }
 
   void moveRight() {
-    if (position + 1 < 70 && isOnBorder(position) == false) {
+    if (isOnBorder(position + 1) == false) {
       position++;
     }
   }
 
   void moveUp() {
-    if (position - 7 >= 0) {
-      position -= 7;
+    if (isOnBorder(position - 9) == false) {
+      position -= 9;
     }
   }
 
   void moveDown() {
-    if (position + 7 < 70) {
-      position += 7;
+    if (isOnBorder(position + 9) == false) {
+      position += 9;
     }
   }
 }
