@@ -70,44 +70,50 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-              margin: const EdgeInsets.only(top: 30),
-              child: Text(
-                'Level $globalIndex',
-                style: const TextStyle(
-                    color: Colors.yellowAccent,
-                    fontSize: 30,
-                    fontFamily: 'Silkscreen'),
-              )),
           Expanded(
-              flex: 6,
-              child: Container(
-                padding: EdgeInsets.only(top: size.height * 0.04),
-                width: size.width * 0.9,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 9,
-                  ),
-                  itemCount: 81,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: level[globalIndex].map.contains(index)
-                              ? const Color(0xff4e4c67)
-                              : null,
-                          borderRadius: BorderRadius.circular(10)),
-                      margin: const EdgeInsets.all(1),
-                      child: gameState(index),
-                    );
-                  },
+            flex: 1,
+            child: Container(
+                margin: const EdgeInsets.only(top: 30),
+                child: Text(
+                  'Level $globalIndex',
+                  style: const TextStyle(
+                      color: Colors.yellowAccent,
+                      fontSize: 30,
+                      fontFamily: 'Silkscreen'),
+                )),
+          ),
+          Expanded(
+            flex: 6,
+            child: Container(
+              padding: EdgeInsets.only(top: size.height * 0.04),
+              width: 400,
+              height: 500,
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 9,
                 ),
-              )),
+                itemCount: 81,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: level[globalIndex].map.contains(index)
+                            ? const Color(0xff4e4c67)
+                            : null,
+                        borderRadius: BorderRadius.circular(10)),
+                    margin: const EdgeInsets.all(1),
+                    child: gameState(index),
+                  );
+                },
+              ),
+            ),
+          ),
           Expanded(
-            flex: 4,
+            flex: 2,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
