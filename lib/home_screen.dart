@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
           if (box.position == character.position + 9 &&
               !isHere(box.position + 9)) {
             box.moveDown();
-            
           }
         }
       }
@@ -160,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 1,
               child: Container(
-                  margin: const EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -169,9 +168,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         flex: 2,
                         child: Text(
                           'Level $globalIndex',
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: Colors.yellowAccent,
-                              fontSize: 30,
+                              fontSize: size.width < 400 ? 20 : 30,
                               fontFamily: 'Silkscreen'),
                         ),
                       ),
@@ -247,11 +246,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ),
             Expanded(
-              flex: 6,
-              child: Container(
-                padding: EdgeInsets.only(top: size.height * 0.04),
-                width: 400,
-                height: 500,
+              flex: 5,
+              child: SizedBox(
+                width: size.width < 500 ? 300 : 400,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -273,101 +270,105 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-              flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          updateGame(globalIndex);
-                        });
-                      },
-                      child: const Text(
-                        'Restart',
-                        style: kButtonTextStyle,
-                      )),
+              flex: 3,
+              child: SizedBox(
+                width: size.width < 400 ? 300 : 500,
+                height: 100,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            updateGame(globalIndex);
+                          });
+                        },
+                        child: const Text(
+                          'Restart',
+                          style: kButtonTextStyle,
+                        )),
 
-                  /// ****** Next Game
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            if (globalIndex > 0) {
-                              setState(() {
-                                globalIndex--;
+                    /// ****** Next Game
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              if (globalIndex > 0) {
+                                setState(() {
+                                  globalIndex--;
 
-                                updateGame(globalIndex);
-                              });
-                            }
-                          },
-                          child: const Text(
-                            'Back',
-                            style: kButtonTextStyle,
-                          )),
-                      ElevatedButton(
-                          onPressed: () {
-                            if (globalIndex < level.length - 1) {
-                              setState(() {
-                                globalIndex++;
+                                  updateGame(globalIndex);
+                                });
+                              }
+                            },
+                            child: const Text(
+                              'Back',
+                              style: kButtonTextStyle,
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              if (globalIndex < level.length - 1) {
+                                setState(() {
+                                  globalIndex++;
 
-                                updateGame(globalIndex);
-                              });
-                            }
-                          },
-                          child: const Text(
-                            'Next',
-                            style: kButtonTextStyle,
-                          )),
-                    ],
-                  ),
+                                  updateGame(globalIndex);
+                                });
+                              }
+                            },
+                            child: const Text(
+                              'Next',
+                              style: kButtonTextStyle,
+                            )),
+                      ],
+                    ),
 
-                  ///
-                  ///******  MOVE UP********
+                    ///
+                    ///******  MOVE UP********
 
-                  size.width > 700
-                      ? Container()
-                      : Column(
-                          children: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  moveUp();
-                                },
-                                child: const Icon(Icons.arrow_drop_up)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ///
-                                ///******  MOVE LEFT********
+                    size.width > 700
+                        ? Container()
+                        : Column(
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    moveUp();
+                                  },
+                                  child: const Icon(Icons.arrow_drop_up)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ///
+                                  ///******  MOVE LEFT********
 
-                                ElevatedButton(
-                                    onPressed: () {
-                                      moveLeft();
-                                    },
-                                    child: const Icon(Icons.arrow_left)),
-                                const SizedBox(width: 100),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        moveLeft();
+                                      },
+                                      child: const Icon(Icons.arrow_left)),
+                                  const SizedBox(width: 100),
 
-                                ///******  MOVE RIGHT********
+                                  ///******  MOVE RIGHT********
 
-                                ElevatedButton(
-                                    onPressed: () {
-                                      moveRight();
-                                    },
-                                    child: const Icon(Icons.arrow_right))
-                              ],
-                            ),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        moveRight();
+                                      },
+                                      child: const Icon(Icons.arrow_right))
+                                ],
+                              ),
 
-                            ///******  MOVE DOWN********
+                              ///******  MOVE DOWN********
 
-                            ElevatedButton(
-                                onPressed: () {
-                                  moveDown();
-                                },
-                                child: const Icon(Icons.arrow_drop_down)),
-                          ],
-                        )
-                ],
+                              ElevatedButton(
+                                  onPressed: () {
+                                    moveDown();
+                                  },
+                                  child: const Icon(Icons.arrow_drop_down)),
+                            ],
+                          )
+                  ],
+                ),
               ),
             ),
           ]),
