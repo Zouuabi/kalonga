@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/Game%20Screen/game_screen.dart';
+import 'package:kalonga/src/Home%20Screen/home_screen.dart';
 
 void main() {
   runApp(
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
             onSurface: Colors.black),
       ),
       home: const HomeScreen(),
+      routes: {GameScreen.id: (context) => const GameScreen()},
     );
   }
 }

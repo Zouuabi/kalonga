@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,14 +8,15 @@ import 'Top Level/level_section.dart';
 import 'box_character.dart';
 import 'controles/controles.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class GameScreen extends StatefulWidget {
+  const GameScreen({Key? key}) : super(key: key);
+  static const String id = 'Game Screen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<GameScreen> createState() => _GameScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _GameScreenState extends State<GameScreen> {
   int currentLevel = 0;
   List<Box> boxes = [];
   late Character character;
@@ -30,6 +33,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (flag) {
       nextMap();
+
+      showDialog(
+          context: context,
+          builder: (context) {
+            Timer(const Duration(milliseconds: 1500), () {
+              Navigator.pop(context);
+            });
+            return Container(
+              alignment: Alignment.bottomCenter,
+              width: 300,
+              height: 100,
+              child: Image.asset(
+                'assets/images/happyMonkey.gif',
+                fit: BoxFit.cover,
+              ),
+            );
+          });
     }
   }
 
@@ -177,7 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    /// TODO: enable auto next level
     return RawKeyboardListener(
       focusNode: FocusNode(),
       autofocus: true,
@@ -209,7 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               flex: 6,
               child: Container(
-                color: Colors.red,
                 padding: EdgeInsets.only(
                     top: size.width < 300 ? size.width * 0.2 : 0),
                 width: 400,
@@ -229,6 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: const EdgeInsets.all(1),
                       child: gameState(index),
                     );
+                    // child: Text('$index'));
                   },
                 ),
               ),
