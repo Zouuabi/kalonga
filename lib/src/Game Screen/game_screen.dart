@@ -14,10 +14,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-  int globalIndex = 0;
+  int currentLevel = 0;
   List<Box> boxes = [];
   late Character character;
+
+  void checkState() {
+    bool flag = true;
+
+    for (Box box in boxes) {
+      int currentPos = box.position;
+      if (!level[currentLevel].targetPlaces.contains(currentPos)) {
+        flag = false;
+      }
+    }
+
+    if (flag) {
+      nextMap();
+    }
+  }
+
   Image? gameState(int index) {
     Image? box;
     if (index == character.position) {
@@ -27,15 +42,15 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else if (isHere(index)) {
       box = Image.asset('assets/images/banana.png');
-    } else if (level[globalIndex].targetPlaces.contains(index)) {
+    } else if (level[currentLevel].targetPlaces.contains(index)) {
       box = Image.asset('assets/images/hole (1).png');
     } else {
       box = null;
     }
     for (int i = 0; i < boxes.length; i++) {
-      for (int j = 0; j < level[globalIndex].targetPlaces.length; j++) {
-        if (boxes[i].position == level[globalIndex].targetPlaces[j] &&
-            index == level[globalIndex].targetPlaces[j]) {
+      for (int j = 0; j < level[currentLevel].targetPlaces.length; j++) {
+        if (boxes[i].position == level[currentLevel].targetPlaces[j] &&
+            index == level[currentLevel].targetPlaces[j]) {
           box = Image.asset(
             'assets/images/ba.gif',
             fit: BoxFit.cover,
@@ -55,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (box.position == character.position + 9 &&
               !isHere(box.position + 9)) {
             box.moveDown();
+            checkState();
           }
         }
       }
@@ -70,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (box.position == character.position + 1 &&
               !isHere(box.position + 1)) {
             box.moveRight();
+            checkState();
           }
         }
       }
@@ -85,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (box.position == character.position - 1 &&
               !isHere(box.position - 1)) {
             box.moveLeft();
+            checkState();
           }
         }
       }
@@ -100,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (box.position == character.position - 9 &&
               !isHere(box.position - 9)) {
             box.moveUp();
+            checkState();
           }
         }
       }
@@ -119,19 +138,19 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       boxes.clear();
       character = Character(
-        position: level[globalIndex].characterPosition,
-        border: level[globalIndex].map,
+        position: level[currentLevel].characterPosition,
+        border: level[currentLevel].map,
       );
-      for (int pos in level[globalIndex].boxPositions) {
-        boxes.add(Box(position: pos, border: level[globalIndex].map));
+      for (int pos in level[currentLevel].boxPositions) {
+        boxes.add(Box(position: pos, border: level[currentLevel].map));
       }
     });
   }
 
   void previousMap() {
-    if (globalIndex > 0) {
+    if (currentLevel > 0) {
       setState(() {
-        globalIndex--;
+        currentLevel--;
 
         updateGame();
       });
@@ -139,9 +158,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void nextMap() {
-    if (globalIndex < level.length - 1) {
+    if (currentLevel < level.length - 1) {
       setState(() {
-        globalIndex++;
+        currentLevel++;
 
         updateGame();
       });
@@ -152,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     updateGame();
-    boxes..
   }
 
   @override
@@ -183,15 +201,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
             Expanded(
               flex: 1,
-              child: LevelSection(globalIndex: globalIndex, size: size),
+              child: LevelSection(globalIndex: currentLevel, size: size),
             ),
 
             /// * Game Map
 
             Expanded(
-              flex: 5,
-              child: SizedBox(
-                width: size.width < 400 ? double.infinity : 400,
+              flex: 6,
+              child: Container(
+                color: Colors.red,
+                padding: EdgeInsets.only(
+                    top: size.width < 300 ? size.width * 0.2 : 0),
+                width: 400,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -201,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       decoration: BoxDecoration(
-                          color: level[globalIndex].map.contains(index)
+                          color: level[currentLevel].map.contains(index)
                               ? const Color(0xff4e4c67)
                               : null,
                           borderRadius: BorderRadius.circular(10)),

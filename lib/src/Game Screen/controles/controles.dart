@@ -39,7 +39,7 @@ class Controles extends StatelessWidget {
                 style: kButtonTextStyle,
               )),
 
-          /// ****** Next Game
+          /// ****** Next and previous Game
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -49,8 +49,8 @@ class Controles extends StatelessWidget {
                     'Back',
                     style: kButtonTextStyle,
                   )),
-              const SizedBox(
-                width: 100,
+              SizedBox(
+                width: size.width * 0.2,
               ),
               ElevatedButton(
                   onPressed: nextMap,
@@ -64,39 +64,35 @@ class Controles extends StatelessWidget {
           ///
           ///******  MOVE UP********
 
-          size.width > 700
-              ? Container()
-              : Column(
-                  children: [
-                    ElevatedButton(
-                        onPressed: moveUp,
-                        child: const Icon(Icons.arrow_drop_up)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ///
-                        ///******  MOVE LEFT********
+          Column(
+            children: [
+              ElevatedButton(
+                  onPressed: moveUp, child: const Icon(Icons.arrow_drop_up)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ///
+                  ///******  MOVE LEFT********
 
-                        ElevatedButton(
-                            onPressed: moveLeft,
-                            child: const Icon(Icons.arrow_left)),
-                        const SizedBox(width: 200),
+                  ElevatedButton(
+                      onPressed: moveLeft, child: const Icon(Icons.arrow_left)),
+                  SizedBox(width: size.width * 0.2),
 
-                        ///******  MOVE RIGHT********
+                  ///******  MOVE RIGHT********
 
-                        ElevatedButton(
-                            onPressed: moveRight,
-                            child: const Icon(Icons.arrow_right))
-                      ],
-                    ),
+                  ElevatedButton(
+                      onPressed: moveRight,
+                      child: const Icon(Icons.arrow_right))
+                ],
+              ),
 
-                    ///******  MOVE DOWN********
+              ///******  MOVE DOWN********
 
-                    ElevatedButton(
-                        onPressed: moveDown,
-                        child: const Icon(Icons.arrow_drop_down)),
-                  ],
-                )
+              ElevatedButton(
+                  onPressed: moveDown,
+                  child: const Icon(Icons.arrow_drop_down)),
+            ],
+          )
         ],
       ),
     );
