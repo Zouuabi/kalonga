@@ -72,3 +72,8 @@ class Character {
     }
   }
 }
+
+
+class Box extends Character {
+  Box({required super.position, required super.border});
+}

@@ -1,17 +1,21 @@
+import 'package:flutter/painting.dart';
+
+const kButtonTextStyle = TextStyle(fontSize: 18, fontFamily: 'Silkscreen');
+
 class Level {
-  Level(
+  const Level(
       {required this.characterPosition,
       required this.targetPlaces,
       required this.boxPositions,
       required this.map});
 
-  int characterPosition;
-  List<int> boxPositions;
-  List<int> targetPlaces;
-  List<int> map;
+  final int characterPosition;
+  final List<int> boxPositions;
+  final List<int> targetPlaces;
+  final List<int> map;
 }
 
-List<Level> level = [
+List<Level> level = const [
   Level(
     characterPosition: 40,
     targetPlaces: [12, 33, 37, 58],
