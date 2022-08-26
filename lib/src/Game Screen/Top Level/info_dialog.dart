@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/constants.dart';
-
 Future<dynamic> infoDialog(BuildContext context) {
   return showDialog(
       context: context,
@@ -15,12 +13,12 @@ Future<dynamic> infoDialog(BuildContext context) {
                   borderRadius: BorderRadius.circular(30)),
               width: 300,
               height: 100,
-              child: DefaultTextStyle(
-                style: const TextStyle(color: Colors.black),
+              child: const DefaultTextStyle(
+                style: TextStyle(color: Colors.black),
                 child: Center(
                     child: Text(
                   'Move The Monkey Using Arrow Keys\nTry To Put Bananas In The Holes',
-                  style: kButtonTextStyle.copyWith(fontSize: 12),
+                  style: TextStyle(fontSize: 12, fontFamily: 'Silkscreen'),
                 )),
               ),
             ),

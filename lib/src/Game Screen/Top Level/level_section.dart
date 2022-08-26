@@ -26,7 +26,7 @@ class LevelSection extends StatelessWidget {
                 'Level $globalIndex',
                 style: TextStyle(
                     color: Colors.yellowAccent,
-                    fontSize: size.width < 400 ? 20 : 30,
+                    fontSize: size.height * 0.03,
                     fontFamily: 'Silkscreen'),
               ),
             ),

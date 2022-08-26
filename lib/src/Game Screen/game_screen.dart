@@ -197,59 +197,54 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return RawKeyboardListener(
-      focusNode: FocusNode(),
-      autofocus: true,
-      onKey: (event) {
-        if (event is RawKeyDownEvent) {
-          if (event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
-            moveUp();
-          } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
-            moveDown();
-          } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
-            moveLeft();
-          } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
-            moveRight();
+    return SafeArea(
+      child: RawKeyboardListener(
+        focusNode: FocusNode(),
+        autofocus: true,
+        onKey: (event) {
+          if (event is RawKeyDownEvent) {
+            if (event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
+              moveUp();
+            } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
+              moveDown();
+            } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
+              moveLeft();
+            } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
+              moveRight();
+            }
           }
-        }
-      },
-      child: SafeArea(
+        },
         child: Scaffold(
           body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             /// * Top Level
 
             Expanded(
-              flex: 1,
               child: LevelSection(globalIndex: currentLevel, size: size),
             ),
 
             /// * Game Map
 
-            Expanded(
-              flex: 6,
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: size.width < 300 ? size.width * 0.2 : 0),
-                width: 400,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 9,
-                  ),
-                  itemCount: 81,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: level[currentLevel].map.contains(index)
-                              ? const Color(0xff4e4c67)
-                              : null,
-                          borderRadius: BorderRadius.circular(10)),
-                      margin: const EdgeInsets.all(1),
-                      child: gameState(index),
-                    );
-                    // child: Text('$index'));
-                  },
+            SizedBox(
+              width: size.height * 0.5,
+              height: size.height * 0.5,
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 9,
                 ),
+                itemCount: 81,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: level[currentLevel].map.contains(index)
+                            ? const Color(0xff4e4c67)
+                            : null,
+                        borderRadius: BorderRadius.circular(10)),
+                    margin: const EdgeInsets.all(1),
+                    child: gameState(index),
+                  );
+                  // child: Text('$index'));
+                },
               ),
             ),
 

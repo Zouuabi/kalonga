@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/constants.dart';
 
 class Controles extends StatelessWidget {
   const Controles(
@@ -26,15 +25,17 @@ class Controles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle kButtonTextStyle =
+        TextStyle(fontSize: size.height * 0.02, fontFamily: 'Silkscreen');
     return SizedBox(
       width: size.width < 500 ? double.infinity : 600,
       height: 100,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ElevatedButton(
               onPressed: updateGame,
-              child: const Text(
+              child: Text(
                 'Restart',
                 style: kButtonTextStyle,
               )),
@@ -45,7 +46,7 @@ class Controles extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: previousMap,
-                  child: const Text(
+                  child: Text(
                     'Back',
                     style: kButtonTextStyle,
                   )),
@@ -54,7 +55,7 @@ class Controles extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: nextMap,
-                  child: const Text(
+                  child: Text(
                     'Next',
                     style: kButtonTextStyle,
                   )),

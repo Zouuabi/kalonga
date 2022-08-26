@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
             onSurface: Colors.black),
       ),
       home: const HomeScreen(),
-      routes: {GameScreen.id: (context) => const GameScreen()},
+      routes: {
+        GameScreen.id: (context) => const GameScreen(),
+      },
     );
   }
 }
