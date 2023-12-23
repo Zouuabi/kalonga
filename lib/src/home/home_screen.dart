@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/Game%20Screen/game_screen.dart';
+
+import 'package:kalonga/src/game/screens/main_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-  static const String id = 'Home Screen';
+  static const String id = '/home-screen';
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(
-      fontFamily: 'Permanent Marker',
-      fontSize: 55,
-      height: 1,
-    );
     return Scaffold(
       body: Center(
         child: Column(
@@ -22,7 +18,11 @@ class HomeScreen extends StatelessWidget {
               child: const Text(
                 'Kalonga\n Press To Start',
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style: TextStyle(
+                  fontFamily: 'Permanent Marker',
+                  fontSize: 55,
+                  height: 1,
+                ),
               ),
             ),
             Transform.rotate(
@@ -33,11 +33,15 @@ class HomeScreen extends StatelessWidget {
                   height: 70,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, GameScreen.id);
+                        Navigator.pushNamed(context, MainScreen.id);
                       },
                       child: const Text(
                         'Play',
-                        style: textStyle,
+                        style: TextStyle(
+                          fontFamily: 'Permanent Marker',
+                          fontSize: 55,
+                          height: 1,
+                        ),
                       ))),
             )
           ],

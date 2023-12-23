@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'how_button.dart';
 
-class LevelSection extends StatelessWidget {
-  const LevelSection({
+class DisplayLevel extends StatelessWidget {
+  const DisplayLevel({
     Key? key,
     required this.globalIndex,
-    required this.size,
   }) : super(key: key);
 
   final int globalIndex;
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return Container(
         padding: const EdgeInsets.only(top: 10, bottom: 10),
         child: Row(

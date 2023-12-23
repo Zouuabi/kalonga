@@ -1,26 +1,11 @@
-
-
-
-
-class Level {
-  const Level(
-      {required this.characterPosition,
-      required this.targetPlaces,
-      required this.boxPositions,
-      required this.map});
-
-  final int characterPosition;
-  final List<int> boxPositions;
-  final List<int> targetPlaces;
-  final List<int> map;
-}
+import '../entities/entities.dart';
 
 List<Level> level = const [
   Level(
     characterPosition: 40,
-    targetPlaces: [12, 33, 37, 58],
-    boxPositions: [30, 39, 49, 32],
-    map: [
+    holesPositions: [12, 33, 37, 58],
+    bananasPositions: [30, 39, 49, 32],
+    borders: [
       2,
       3,
       4,
@@ -51,15 +36,15 @@ List<Level> level = const [
       11
     ],
   ),
-  Level(characterPosition: 12, targetPlaces: [
+  Level(characterPosition: 12, holesPositions: [
     34,
     43,
     52,
-  ], boxPositions: [
+  ], bananasPositions: [
     21,
     20,
     29
-  ], map: [
+  ], borders: [
     0,
     1,
     2,
@@ -100,15 +85,15 @@ List<Level> level = const [
     18,
     9
   ]),
-  Level(characterPosition: 11, targetPlaces: [
+  Level(characterPosition: 11, holesPositions: [
     37,
     46,
     55,
-  ], boxPositions: [
+  ], bananasPositions: [
     47,
     21,
     59
-  ], map: [
+  ], borders: [
     1,
     10,
     19,
@@ -143,19 +128,19 @@ List<Level> level = const [
     40,
     50
   ]),
-  Level(characterPosition: 20, targetPlaces: [
+  Level(characterPosition: 20, holesPositions: [
     58,
     46,
     55,
     56,
     57
-  ], boxPositions: [
+  ], bananasPositions: [
     29,
     21,
     39,
     47,
     57
-  ], map: [
+  ], borders: [
     1,
     2,
     3,
@@ -185,9 +170,9 @@ List<Level> level = const [
   ]),
   Level(
     characterPosition: 28,
-    targetPlaces: [31, 32, 41, 40, 39],
-    boxPositions: [30, 21, 22, 23, 38],
-    map: [
+    holesPositions: [31, 32, 41, 40, 39],
+    bananasPositions: [30, 21, 22, 23, 38],
+    borders: [
       2,
       3,
       4,
@@ -216,17 +201,17 @@ List<Level> level = const [
       11
     ],
   ),
-  Level(characterPosition: 14, targetPlaces: [
+  Level(characterPosition: 14, holesPositions: [
     22,
     30,
     40,
     32
-  ], boxPositions: [
+  ], bananasPositions: [
     21,
     31,
     41,
     40
-  ], map: [
+  ], borders: [
     2,
     3,
     4,
@@ -254,17 +239,17 @@ List<Level> level = const [
     11,
     9
   ]),
-  Level(characterPosition: 57, targetPlaces: [
+  Level(characterPosition: 57, holesPositions: [
     12,
     13,
     22,
     32
-  ], boxPositions: [
+  ], bananasPositions: [
     49,
     50,
     39,
     31
-  ], map: [
+  ], borders: [
     2,
     11,
     20,
@@ -298,9 +283,9 @@ List<Level> level = const [
   ]),
   Level(
     characterPosition: 28,
-    targetPlaces: [21, 30, 39, 22, 31, 40],
-    boxPositions: [20, 29, 38, 31, 23, 41],
-    map: [
+    holesPositions: [21, 30, 39, 22, 31, 40],
+    bananasPositions: [20, 29, 38, 31, 23, 41],
+    borders: [
       0,
       1,
       2,
@@ -334,9 +319,9 @@ List<Level> level = const [
   ),
   Level(
     characterPosition: 58,
-    targetPlaces: [10, 11, 20, 19, 22, 13, 14, 23],
-    boxPositions: [12, 30, 31, 29, 39, 49, 48, 47],
-    map: [
+    holesPositions: [10, 11, 20, 19, 22, 13, 14, 23],
+    bananasPositions: [12, 30, 31, 29, 39, 49, 48, 47],
+    borders: [
       0,
       1,
       2,
@@ -370,9 +355,9 @@ List<Level> level = const [
   ),
   Level(
     characterPosition: 32,
-    targetPlaces: [30, 39, 48, 57, 66],
-    boxPositions: [21, 30, 39, 48, 57],
-    map: [
+    holesPositions: [30, 39, 48, 57, 66],
+    bananasPositions: [21, 30, 39, 48, 57],
+    borders: [
       2,
       3,
       4,
@@ -405,9 +390,9 @@ List<Level> level = const [
   ),
   Level(
     characterPosition: 48,
-    targetPlaces: [30, 29, 20],
-    boxPositions: [40, 31, 23],
-    map: [
+    holesPositions: [30, 29, 20],
+    bananasPositions: [40, 31, 23],
+    borders: [
       1,
       2,
       3,

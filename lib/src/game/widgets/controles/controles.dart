@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 class Controles extends StatelessWidget {
   const Controles(
       {Key? key,
-      required this.size,
       required this.updateGame,
       required this.previousMap,
       required this.nextMap,
@@ -14,7 +12,6 @@ class Controles extends StatelessWidget {
       required this.moveRight})
       : super(key: key);
 
-  final Size size;
   final VoidCallback updateGame;
   final VoidCallback previousMap;
   final VoidCallback nextMap;
@@ -25,6 +22,7 @@ class Controles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     TextStyle kButtonTextStyle =
         TextStyle(fontSize: size.height * 0.02, fontFamily: 'Silkscreen');
     return SizedBox(
@@ -41,26 +39,26 @@ class Controles extends StatelessWidget {
               )),
 
           /// ****** Next and previous Game
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                  onPressed: previousMap,
-                  child: Text(
-                    'Back',
-                    style: kButtonTextStyle,
-                  )),
-              SizedBox(
-                width: size.width * 0.2,
-              ),
-              ElevatedButton(
-                  onPressed: nextMap,
-                  child: Text(
-                    'Next',
-                    style: kButtonTextStyle,
-                  )),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     ElevatedButton(
+          //         onPressed: previousMap,
+          //         child: Text(
+          //           'Back',
+          //           style: kButtonTextStyle,
+          //         )),
+          //     SizedBox(
+          //       width: size.width * 0.2,
+          //     ),
+          //     ElevatedButton(
+          //         onPressed: nextMap,
+          //         child: Text(
+          //           'Next',
+          //           style: kButtonTextStyle,
+          //         )),
+          //   ],
+          // ),
 
           ///
           ///******  MOVE UP********
