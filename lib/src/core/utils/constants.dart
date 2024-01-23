@@ -1,6 +1,6 @@
-import '../entities/entities.dart';
+import '../../entities/entities.dart';
 
-List<Level> level = const [
+List<Level> levels = const [
   Level(
     characterPosition: 40,
     holesPositions: [12, 33, 37, 58],

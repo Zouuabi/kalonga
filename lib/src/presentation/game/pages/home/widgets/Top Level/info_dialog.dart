@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> infoDialog(BuildContext context) {
+Future<dynamic> infoDialog(BuildContext context, String message) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -13,12 +13,13 @@ Future<dynamic> infoDialog(BuildContext context) {
                   borderRadius: BorderRadius.circular(30)),
               width: 300,
               height: 100,
-              child: const DefaultTextStyle(
-                style: TextStyle(color: Colors.black),
+              child: DefaultTextStyle(
+                style: const TextStyle(color: Colors.black),
                 child: Center(
                     child: Text(
-                  'Move The Monkey Using Arrow Keys\nTry To Put Bananas In The Holes',
-                  style: TextStyle(fontSize: 12, fontFamily: 'Silkscreen'),
+                  message,
+                  style:
+                      const TextStyle(fontSize: 12, fontFamily: 'Silkscreen'),
                 )),
               ),
             ),

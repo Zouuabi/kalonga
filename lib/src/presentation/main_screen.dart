@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/game/screens/game_screen.dart';
+import 'package:kalonga/src/presentation/game/pages/home/views/game_screen.dart';
+import 'package:kalonga/src/presentation/game/pages/home/views/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
-  static const String id = '/main-screen';
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -11,9 +11,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentScreen = 0;
-  List<Widget> pages = const [
-    GameScreen(),
-    Center(child: Text('tesdfsdfdsfsd')),
+  List<Widget> pages = [
+    const HomeScreen(),
+    const GameScreen(currentLevel: 5),
   ];
 
   @override
@@ -43,9 +43,12 @@ class _MainScreenState extends State<MainScreen> {
             }),
           ),
         ),
-        body: IndexedStack(
-          index: currentScreen,
-          children: pages,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: IndexedStack(
+            index: currentScreen,
+            children: pages,
+          ),
         ));
   }
 }

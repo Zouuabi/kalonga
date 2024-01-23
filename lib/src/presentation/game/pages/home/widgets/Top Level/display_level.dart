@@ -18,7 +18,13 @@ class DisplayLevel extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(flex: 2, child: Container()),
+            Expanded(
+                flex: 2,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios_new))),
             Expanded(
               flex: 2,
               child: Text(
