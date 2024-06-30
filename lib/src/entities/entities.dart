@@ -154,14 +154,14 @@ class Map {
 }
 
 class Level {
-  const Level(
+  Level(
       {required this.characterPosition,
       required this.holesPositions,
       required this.bananasPositions,
       required this.borders});
 
-  final int characterPosition;
-  final List<int> bananasPositions;
-  final List<int> holesPositions;
-  final List<int> borders;
+  int characterPosition;
+  List<int> bananasPositions;
+  List<int> holesPositions;
+  List<int> borders;
 }

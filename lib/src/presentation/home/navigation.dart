@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/presentation/game/pages/home/views/game_screen.dart';
-import 'package:kalonga/src/presentation/game/pages/home/views/home_screen.dart';
+import 'package:kalonga/src/presentation/home/pages/home/views/game_screen.dart';
+import 'package:kalonga/src/presentation/home/pages/home/views/levels_screen.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class Navigation extends StatefulWidget {
+  const Navigation({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<Navigation> createState() => _NavigationState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _NavigationState extends State<Navigation> {
   int currentScreen = 0;
   List<Widget> pages = [
-    const HomeScreen(),
+    const LevelsScreen(),
     const GameScreen(currentLevel: 5),
   ];
 

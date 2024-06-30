@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/core/image_manager.dart';
+import 'package:kalonga/src/core/utils/app_colors.dart';
+import 'package:kalonga/src/core/utils/app_strings.dart';
 import 'package:kalonga/src/core/utils/constants.dart';
 import 'package:kalonga/src/entities/entities.dart';
-import 'package:kalonga/src/presentation/game/cubit/game_cubit.dart';
-
-import '../widgets/Top Level/display_level.dart';
-import '../widgets/controles/controles.dart';
+import 'package:kalonga/src/presentation/home/cubit/game_bloc.dart';
+import 'package:kalonga/src/presentation/home/pages/home/widgets/character_contollers.dart';
+import 'package:kalonga/src/presentation/home/pages/home/widgets/widgets.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({Key? key, required this.currentLevel}) : super(key: key);
+  const GameScreen({super.key, required this.currentLevel});
   final int currentLevel;
   static const String id = 'game-screen';
 
@@ -33,13 +34,14 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     currentLevel = widget.currentLevel;
     map = Map(
-        bananas: levels[currentLevel]
-            .bananasPositions
-            .map((e) => Banana(position: e))
-            .toList(),
-        holes: levels[currentLevel].holesPositions,
-        monkey: Monkey(position: levels[currentLevel].characterPosition),
-        border: levels[currentLevel].borders);
+      bananas: levels[currentLevel]
+          .bananasPositions
+          .map((e) => Banana(position: e))
+          .toList(),
+      holes: levels[currentLevel].holesPositions,
+      monkey: Monkey(position: levels[currentLevel].characterPosition),
+      border: levels[currentLevel].borders,
+    );
     map.levelComplete.stream.listen((event) {
       if (event == true) {
         celebrateSuccess();
@@ -73,8 +75,6 @@ class _GameScreenState extends State<GameScreen> {
     if (currentLevel < levels.length - 1) {
       setState(() {
         currentLevel++;
-        BlocProvider.of<GameCubit>(context)
-            .unlockNextLevel(nextLevel: currentLevel);
 
         map = Map(
             bananas: levels[currentLevel]
@@ -140,6 +140,7 @@ class _GameScreenState extends State<GameScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: _appBar(context),
       body: SafeArea(
         child: RawKeyboardListener(
           focusNode: FocusNode(),
@@ -169,94 +170,104 @@ class _GameScreenState extends State<GameScreen> {
               }
             }
           },
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            /// * Top Level
-
-            Expanded(
-              child: DisplayLevel(
-                globalIndex: currentLevel,
-              ),
-            ),
-
-            /// * Game Map
-
-            SizedBox(
-              width: size.height * 0.5,
-              height: size.height * 0.5,
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 9,
+          child: Column(
+            children: [
+              SizedBox(
+                width: size.height * 0.5,
+                height: size.height * 0.5,
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 9,
+                  ),
+                  itemCount: 81,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          // border: Border.all(),
+                          color: levels[currentLevel].borders.contains(index)
+                              ? const Color(0xff4e4c67)
+                              : null,
+                          borderRadius: BorderRadius.circular(10)),
+                      margin: const EdgeInsets.all(1),
+                      child: displayGame(index),
+                    );
+                  },
                 ),
-                itemCount: 81,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        // border: Border.all(),
-                        color: levels[currentLevel].borders.contains(index)
-                            ? const Color(0xff4e4c67)
-                            : null,
-                        borderRadius: BorderRadius.circular(10)),
-                    margin: const EdgeInsets.all(1),
-                    child: displayGame(index),
-                  );
-                },
               ),
-            ),
-
-            /// * Controles
-            Text(
-              ' Score : $score',
-              style: const TextStyle(
-                  color: Colors.yellowAccent,
-                  fontSize: 20,
-                  fontFamily: 'Silkscreen'),
-            ),
-            Expanded(
-                flex: 3,
-                child: Controles(
-                    updateGame: () {
-                      setState(() {
-                        map = Map(
-                            bananas: levels[currentLevel]
-                                .bananasPositions
-                                .map((e) => Banana(position: e))
-                                .toList(),
-                            holes: levels[currentLevel].holesPositions,
-                            monkey: Monkey(
-                                position:
-                                    levels[currentLevel].characterPosition),
-                            border: levels[currentLevel].borders);
-                      });
-                    },
-                    previousMap: () {},
-                    nextMap: nextMap,
-                    moveUp: () {
-                      setState(() {
-                        map.moveUp();
-                        numberOfMoves++;
-                      });
-                    },
-                    moveDown: () {
-                      setState(() {
-                        map.moveDown();
-                        numberOfMoves++;
-                      });
-                    },
-                    moveLeft: () {
-                      setState(() {
-                        map.moveLeft();
-                        numberOfMoves++;
-                      });
-                    },
-                    moveRight: () {
-                      setState(() {
-                        map.moveRight();
-                        numberOfMoves++;
-                      });
-                    })),
-          ]),
+              Text(' Score : $score',
+                  style: Theme.of(context).textTheme.headlineMedium),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      map = Map(
+                          bananas: levels[currentLevel]
+                              .bananasPositions
+                              .map((e) => Banana(position: e))
+                              .toList(),
+                          holes: levels[currentLevel].holesPositions,
+                          monkey: Monkey(
+                              position: levels[currentLevel].characterPosition),
+                          border: levels[currentLevel].borders);
+                    });
+                  },
+                  child: Text(
+                    AppStrings.restart,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  )),
+              CharacterControllers(
+                  previousMap: () {},
+                  nextMap: nextMap,
+                  moveUp: () {
+                    setState(() {
+                      map.moveUp();
+                      numberOfMoves++;
+                    });
+                  },
+                  moveDown: () {
+                    setState(() {
+                      map.moveDown();
+                      numberOfMoves++;
+                    });
+                  },
+                  moveLeft: () {
+                    setState(() {
+                      map.moveLeft();
+                      numberOfMoves++;
+                    });
+                  },
+                  moveRight: () {
+                    setState(() {
+                      map.moveRight();
+                      numberOfMoves++;
+                    });
+                  }),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColors.scaffoldColor,
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios_new)),
+          Text(
+            '${AppStrings.level} $currentLevel',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const HowButton()
+        ],
       ),
     );
   }

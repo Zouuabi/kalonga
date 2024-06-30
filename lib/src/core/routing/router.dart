@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/presentation/game/pages/home/views/game_screen.dart';
-import 'package:kalonga/src/presentation/main_screen.dart';
+import 'package:kalonga/src/presentation/home/pages/home/views/game_screen.dart';
+import 'package:kalonga/src/presentation/home/navigation.dart';
 import 'package:kalonga/src/presentation/welcome/home_screen.dart';
 
 class Routes {
@@ -21,7 +21,7 @@ class RouteGenerator {
       /// Navigation screeen
       case Routes.main:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const MainScreen();
+          return const Navigation();
         });
 
       // navigate to a specific level (game)

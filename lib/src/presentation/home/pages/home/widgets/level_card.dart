@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/core/routing/router.dart';
-
-import 'Top Level/info_dialog.dart';
-import '../views/game_screen.dart';
+import 'package:kalonga/src/presentation/home/pages/home/widgets/widgets.dart';
 
 class Level extends StatelessWidget {
   const Level({

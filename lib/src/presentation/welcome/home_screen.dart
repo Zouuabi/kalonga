@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/core/routing/router.dart';
-import 'package:kalonga/src/presentation/main_screen.dart';
-import 'package:kalonga/src/presentation/game/pages/home/widgets/Top%20Level/info_dialog.dart';
+import 'package:kalonga/src/presentation/home/pages/home/widgets/widgets.dart'
+    show infoDialog;
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

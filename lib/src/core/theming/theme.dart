@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:kalonga/src/core/utils/app_colors.dart';
 
 class AppTheme {
   static ThemeData main() {
     return ThemeData().copyWith(
-        scaffoldBackgroundColor: const Color(0xffa6b1e1),
+        scaffoldBackgroundColor: AppColors.scaffoldColor,
+        textTheme: _buildTextTheme(),
         colorScheme: const ColorScheme(
-            brightness: Brightness.dark,
-            primary: Color(0xffb4869f),
+            brightness: Brightness.light,
+            primary: AppColors.yellow,
             onPrimary: Color(0xffdcd6f7),
             secondary: Color(0xffe56b6f),
             onSecondary: Color(0xffFE5D9F),
             error: Colors.red,
             onError: Colors.black,
-            background: Color(0xffD6D2D2),
-            onBackground: Color(0xff6d597a),
-            surface: Color.fromARGB(255, 48, 47, 47),
-            onSurface: Colors.black));
+            surface: Color(0xffb4869f),
+            onSurface: Colors.white));
   }
+}
+
+TextTheme _buildTextTheme() {
+  return ThemeData()
+      .textTheme
+      .apply(fontFamily: 'Silkscreen', displayColor: AppColors.yellow);
 }
