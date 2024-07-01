@@ -1,6 +1,13 @@
 part of 'game_bloc.dart';
 
-enum GameStatus { initial, characterMoved }
+enum GameStatus {
+  initial,
+  characterMoved,
+  restarted,
+  completed,
+  nextLevel,
+  changeLevel
+}
 
 class GameState extends Equatable {
   final int characterPosition;
@@ -27,6 +34,11 @@ class GameState extends Equatable {
       status: status ?? this.status,
       levelNumber: levelNumber ?? this.levelNumber,
     );
+  }
+
+  @override
+  String toString() {
+    return """Character Positon : $characterPosition """;
   }
 
   @override

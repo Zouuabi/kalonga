@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:kalonga/src/presentation/home/cubit/game_bloc.dart';
+import 'package:kalonga/src/presentation/home/bloc/game_bloc.dart';
 import 'package:kalonga/src/presentation/home/widgets/level_item.dart';
 import 'package:kalonga/src/utils/levels.dart';
 

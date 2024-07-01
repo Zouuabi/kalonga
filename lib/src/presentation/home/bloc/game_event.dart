@@ -12,3 +12,12 @@ final class MoveRight extends GameEvent {}
 final class MoveUp extends GameEvent {}
 
 final class MoveDown extends GameEvent {}
+
+final class Restart extends GameEvent {}
+
+final class Check extends GameEvent {}
+
+final class LevelChange extends GameEvent {
+  LevelChange({required this.toLevel});
+  final int toLevel;
+}
