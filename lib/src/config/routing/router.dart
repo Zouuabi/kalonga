@@ -27,8 +27,7 @@ class RouteGenerator {
       // navigate to a specific level (game)
       case Routes.game:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          final int arg = settings.arguments as int;
-          return GamePage(currentLevel: arg);
+          return const GamePage();
         });
 
       default:
