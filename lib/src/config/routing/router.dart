@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/presentation/home/views/game_page.dart';
-import 'package:kalonga/src/presentation/home/navigation.dart';
+import 'package:kalonga/src/presentation/home/views/navigation_page.dart';
 import 'package:kalonga/src/presentation/welcome/home_screen.dart';
 
 class Routes {
