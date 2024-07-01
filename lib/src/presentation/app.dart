@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalonga/src/core/routing/router.dart';
-import 'package:kalonga/src/core/theming/theme.dart';
+import 'package:kalonga/src/config/routing/router.dart';
+import 'package:kalonga/src/config/theming/theme.dart';
 import 'package:kalonga/src/presentation/home/cubit/game_bloc.dart';
 
 class MyApp extends StatelessWidget {

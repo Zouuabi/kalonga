@@ -1,11 +1,11 @@
-import '../../entities/entities.dart';
+import 'package:kalonga/src/entities/level.dart';
 
 List<Level> levels = [
   Level(
     characterPosition: 40,
-    holesPositions: [12, 33, 37, 58],
-    bananasPositions: [30, 39, 49, 32],
-    borders: [
+    holesPositions: const [12, 33, 37, 58],
+    bananasPositions: const [30, 39, 49, 32],
+    borders: const [
       2,
       3,
       4,
@@ -36,15 +36,15 @@ List<Level> levels = [
       11
     ],
   ),
-  Level(characterPosition: 12, holesPositions: [
+  Level(characterPosition: 12, holesPositions: const [
     34,
     43,
     52,
-  ], bananasPositions: [
+  ], bananasPositions: const [
     21,
     20,
     29
-  ], borders: [
+  ], borders: const [
     0,
     1,
     2,
@@ -85,15 +85,15 @@ List<Level> levels = [
     18,
     9
   ]),
-  Level(characterPosition: 11, holesPositions: [
+  Level(characterPosition: 11, holesPositions: const [
     37,
     46,
     55,
-  ], bananasPositions: [
+  ], bananasPositions: const [
     47,
     21,
     59
-  ], borders: [
+  ], borders: const [
     1,
     10,
     19,
@@ -128,19 +128,19 @@ List<Level> levels = [
     40,
     50
   ]),
-  Level(characterPosition: 20, holesPositions: [
+  Level(characterPosition: 20, holesPositions: const [
     58,
     46,
     55,
     56,
     57
-  ], bananasPositions: [
+  ], bananasPositions: const [
     29,
     21,
     39,
     47,
     57
-  ], borders: [
+  ], borders: const [
     1,
     2,
     3,
@@ -170,9 +170,9 @@ List<Level> levels = [
   ]),
   Level(
     characterPosition: 28,
-    holesPositions: [31, 32, 41, 40, 39],
-    bananasPositions: [30, 21, 22, 23, 38],
-    borders: [
+    holesPositions: const [31, 32, 41, 40, 39],
+    bananasPositions: const [30, 21, 22, 23, 38],
+    borders: const [
       2,
       3,
       4,
@@ -201,17 +201,17 @@ List<Level> levels = [
       11
     ],
   ),
-  Level(characterPosition: 14, holesPositions: [
+  Level(characterPosition: 14, holesPositions: const [
     22,
     30,
     40,
     32
-  ], bananasPositions: [
+  ], bananasPositions: const [
     21,
     31,
     41,
     40
-  ], borders: [
+  ], borders: const [
     2,
     3,
     4,
@@ -239,17 +239,17 @@ List<Level> levels = [
     11,
     9
   ]),
-  Level(characterPosition: 57, holesPositions: [
+  Level(characterPosition: 57, holesPositions: const [
     12,
     13,
     22,
     32
-  ], bananasPositions: [
+  ], bananasPositions: const [
     49,
     50,
     39,
     31
-  ], borders: [
+  ], borders: const [
     2,
     11,
     20,
@@ -283,9 +283,9 @@ List<Level> levels = [
   ]),
   Level(
     characterPosition: 28,
-    holesPositions: [21, 30, 39, 22, 31, 40],
-    bananasPositions: [20, 29, 38, 31, 23, 41],
-    borders: [
+    holesPositions: const [21, 30, 39, 22, 31, 40],
+    bananasPositions: const [20, 29, 38, 31, 23, 41],
+    borders: const [
       0,
       1,
       2,
@@ -319,9 +319,9 @@ List<Level> levels = [
   ),
   Level(
     characterPosition: 58,
-    holesPositions: [10, 11, 20, 19, 22, 13, 14, 23],
-    bananasPositions: [12, 30, 31, 29, 39, 49, 48, 47],
-    borders: [
+    holesPositions: const [10, 11, 20, 19, 22, 13, 14, 23],
+    bananasPositions: const [12, 30, 31, 29, 39, 49, 48, 47],
+    borders: const [
       0,
       1,
       2,
@@ -355,9 +355,9 @@ List<Level> levels = [
   ),
   Level(
     characterPosition: 32,
-    holesPositions: [30, 39, 48, 57, 66],
-    bananasPositions: [21, 30, 39, 48, 57],
-    borders: [
+    holesPositions: const [30, 39, 48, 57, 66],
+    bananasPositions: const [21, 30, 39, 48, 57],
+    borders: const [
       2,
       3,
       4,
@@ -390,9 +390,9 @@ List<Level> levels = [
   ),
   Level(
     characterPosition: 48,
-    holesPositions: [30, 29, 20],
-    bananasPositions: [40, 31, 23],
-    borders: [
+    holesPositions: const [30, 29, 20],
+    bananasPositions: const [40, 31, 23],
+    borders: const [
       1,
       2,
       3,

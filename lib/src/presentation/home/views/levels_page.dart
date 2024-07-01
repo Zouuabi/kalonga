@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalonga/src/core/utils/constants.dart';
-import 'package:kalonga/src/presentation/home/cubit/game_bloc.dart';
-import 'package:kalonga/src/presentation/home/pages/home/widgets/level_card.dart';
 
-class LevelsScreen extends StatelessWidget {
-  const LevelsScreen({super.key});
+import 'package:kalonga/src/presentation/home/cubit/game_bloc.dart';
+import 'package:kalonga/src/presentation/home/widgets/level_item.dart';
+import 'package:kalonga/src/utils/levels.dart';
+
+class LevelsPage extends StatelessWidget {
+  const LevelsPage({super.key});
   static const String id = 'home-screen';
 
   @override
@@ -22,11 +23,9 @@ class LevelsScreen extends StatelessWidget {
                 mainAxisSpacing: width * 0.03,
               ),
               itemCount: levels.length,
-              itemBuilder: (context, index) => Level(
+              itemBuilder: (context, index) => LevelItem(
                   level: index,
-                  locked: context.read<GameBloc>().currentlevel >= index
-                      ? false
-                      : true),
+                  locked: state.levelNumber >= index ? false : true),
             ));
       },
     );

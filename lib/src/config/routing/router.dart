@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/presentation/home/pages/home/views/game_screen.dart';
+import 'package:kalonga/src/presentation/home/views/game_page.dart';
 import 'package:kalonga/src/presentation/home/navigation.dart';
 import 'package:kalonga/src/presentation/welcome/home_screen.dart';
 
@@ -28,7 +28,7 @@ class RouteGenerator {
       case Routes.game:
         return MaterialPageRoute(builder: (BuildContext ctx) {
           final int arg = settings.arguments as int;
-          return GameScreen(currentLevel: arg);
+          return GamePage(currentLevel: arg);
         });
 
       default:

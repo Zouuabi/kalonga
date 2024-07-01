@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 class CharacterControllers extends StatelessWidget {
   const CharacterControllers(
       {super.key,
-      required this.previousMap,
-      required this.nextMap,
       required this.moveUp,
       required this.moveDown,
       required this.moveLeft,
       required this.moveRight});
 
-  final VoidCallback previousMap;
-  final VoidCallback nextMap;
   final VoidCallback moveUp;
   final VoidCallback moveDown;
   final VoidCallback moveLeft;

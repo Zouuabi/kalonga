@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/core/routing/router.dart';
-import 'package:kalonga/src/presentation/home/pages/home/widgets/widgets.dart';
+import 'package:kalonga/src/config/routing/router.dart';
+import 'package:kalonga/src/presentation/home/widgets/widgets.dart';
 
-class Level extends StatelessWidget {
-  const Level({
+class LevelItem extends StatelessWidget {
+  const LevelItem({
     super.key,
     required this.level,
     required this.locked,

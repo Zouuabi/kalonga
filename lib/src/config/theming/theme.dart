@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/core/utils/app_colors.dart';
+import 'package:kalonga/src/utils/app_colors.dart';
 
 class AppTheme {
   static ThemeData main() {

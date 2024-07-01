@@ -5,10 +5,10 @@ sealed class GameEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class CharacterMovedLeft extends GameEvent {}
+final class MoveLeft extends GameEvent {}
 
-final class CharacterMovedRight extends GameEvent {}
+final class MoveRight extends GameEvent {}
 
-final class CharacterMovedUp extends GameEvent {}
+final class MoveUp extends GameEvent {}
 
-final class CharacterMovedDown extends GameEvent {}
+final class MoveDown extends GameEvent {}

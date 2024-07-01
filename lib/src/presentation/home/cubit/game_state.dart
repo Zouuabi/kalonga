@@ -3,20 +3,32 @@ part of 'game_bloc.dart';
 enum GameStatus { initial, characterMoved }
 
 class GameState extends Equatable {
-  const GameState({required this.data, required this.status});
-  // final List<Map<String, dynamic>> data;
-  final dynamic data;
+  final int characterPosition;
+  final Level level;
   final GameStatus status;
+  final int levelNumber;
 
-  GameState copyWith({GameStatus? status, dynamic data}) {
-    return GameState(data: data ?? this.data, status: status ?? this.status);
+  const GameState({
+    required this.characterPosition,
+    required this.level,
+    required this.status,
+    required this.levelNumber,
+  });
+
+  GameState copyWith({
+    int? characterPosition,
+    Level? level,
+    GameStatus? status,
+    int? levelNumber,
+  }) {
+    return GameState(
+      characterPosition: characterPosition ?? this.characterPosition,
+      level: level ?? this.level,
+      status: status ?? this.status,
+      levelNumber: levelNumber ?? this.levelNumber,
+    );
   }
 
   @override
-  String toString() {
-    return '''GameState {status: $status}''';
-  }
-
-  @override
-  List<Object> get props => [data, status];
+  List<Object> get props => [characterPosition, level, status, levelNumber];
 }

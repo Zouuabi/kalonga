@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/core/routing/router.dart';
-import 'package:kalonga/src/presentation/home/pages/home/widgets/widgets.dart'
+import 'package:kalonga/src/config/routing/router.dart';
+import 'package:kalonga/src/presentation/home/widgets/widgets.dart'
     show infoDialog;
 
 class WelcomeScreen extends StatefulWidget {
