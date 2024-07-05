@@ -1,11 +1,11 @@
 import 'package:kalonga/src/entities/level.dart';
 
 List<Level> levels = [
-  Level(
+  const Level(
     characterPosition: 40,
-    holesPositions: const [12, 33, 37, 58],
-    bananasPositions: const [30, 39, 49, 32],
-    borders: const [
+    holesPositions: [12, 33, 37, 58],
+    bananasPositions: [30, 39, 49, 32],
+    borders: [
       2,
       3,
       4,
@@ -36,15 +36,15 @@ List<Level> levels = [
       11
     ],
   ),
-  Level(characterPosition: 12, holesPositions: const [
+  const Level(characterPosition: 12, holesPositions: [
     34,
     43,
     52,
-  ], bananasPositions: const [
+  ], bananasPositions: [
     21,
     20,
     29
-  ], borders: const [
+  ], borders: [
     0,
     1,
     2,
@@ -85,15 +85,15 @@ List<Level> levels = [
     18,
     9
   ]),
-  Level(characterPosition: 11, holesPositions: const [
+  const Level(characterPosition: 11, holesPositions: [
     37,
     46,
     55,
-  ], bananasPositions: const [
+  ], bananasPositions: [
     47,
     21,
     59
-  ], borders: const [
+  ], borders: [
     1,
     10,
     19,
@@ -128,19 +128,19 @@ List<Level> levels = [
     40,
     50
   ]),
-  Level(characterPosition: 20, holesPositions: const [
+  const Level(characterPosition: 20, holesPositions: [
     58,
     46,
     55,
     56,
     57
-  ], bananasPositions: const [
+  ], bananasPositions: [
     29,
     21,
     39,
     47,
     57
-  ], borders: const [
+  ], borders: [
     1,
     2,
     3,
@@ -168,11 +168,11 @@ List<Level> levels = [
     9,
     10
   ]),
-  Level(
+  const Level(
     characterPosition: 28,
-    holesPositions: const [31, 32, 41, 40, 39],
-    bananasPositions: const [30, 21, 22, 23, 38],
-    borders: const [
+    holesPositions: [31, 32, 41, 40, 39],
+    bananasPositions: [30, 21, 22, 23, 38],
+    borders: [
       2,
       3,
       4,
@@ -201,17 +201,17 @@ List<Level> levels = [
       11
     ],
   ),
-  Level(characterPosition: 14, holesPositions: const [
+  const Level(characterPosition: 14, holesPositions: [
     22,
     30,
     40,
     32
-  ], bananasPositions: const [
+  ], bananasPositions: [
     21,
     31,
     41,
     40
-  ], borders: const [
+  ], borders: [
     2,
     3,
     4,
@@ -239,17 +239,17 @@ List<Level> levels = [
     11,
     9
   ]),
-  Level(characterPosition: 57, holesPositions: const [
+  const Level(characterPosition: 57, holesPositions: [
     12,
     13,
     22,
     32
-  ], bananasPositions: const [
+  ], bananasPositions: [
     49,
     50,
     39,
     31
-  ], borders: const [
+  ], borders: [
     2,
     11,
     20,
@@ -281,11 +281,11 @@ List<Level> levels = [
     3,
     48
   ]),
-  Level(
+  const Level(
     characterPosition: 28,
-    holesPositions: const [21, 30, 39, 22, 31, 40],
-    bananasPositions: const [20, 29, 38, 31, 23, 41],
-    borders: const [
+    holesPositions: [21, 30, 39, 22, 31, 40],
+    bananasPositions: [20, 29, 38, 31, 23, 41],
+    borders: [
       0,
       1,
       2,
@@ -317,11 +317,11 @@ List<Level> levels = [
       33
     ],
   ),
-  Level(
+  const Level(
     characterPosition: 58,
-    holesPositions: const [10, 11, 20, 19, 22, 13, 14, 23],
-    bananasPositions: const [12, 30, 31, 29, 39, 49, 48, 47],
-    borders: const [
+    holesPositions: [10, 11, 20, 19, 22, 13, 14, 23],
+    bananasPositions: [12, 30, 31, 29, 39, 49, 48, 47],
+    borders: [
       0,
       1,
       2,
@@ -353,11 +353,11 @@ List<Level> levels = [
       21
     ],
   ),
-  Level(
+  const Level(
     characterPosition: 32,
-    holesPositions: const [30, 39, 48, 57, 66],
-    bananasPositions: const [21, 30, 39, 48, 57],
-    borders: const [
+    holesPositions: [30, 39, 48, 57, 66],
+    bananasPositions: [21, 30, 39, 48, 57],
+    borders: [
       2,
       3,
       4,
@@ -388,11 +388,11 @@ List<Level> levels = [
       11
     ],
   ),
-  Level(
+  const Level(
     characterPosition: 48,
-    holesPositions: const [30, 29, 20],
-    bananasPositions: const [40, 31, 23],
-    borders: const [
+    holesPositions: [30, 29, 20],
+    bananasPositions: [40, 31, 23],
+    borders: [
       1,
       2,
       3,

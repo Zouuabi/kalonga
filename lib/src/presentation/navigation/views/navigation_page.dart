@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:kalonga/src/presentation/navigation/views/levels_page.dart';
 import 'package:kalonga/src/presentation/navigation/widgets/custom_nav_bar.dart';
-import 'package:kalonga/src/presentation/settings/pages/settings_page.dart';
+import 'package:kalonga/src/presentation/navigation/views/settings_page.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});

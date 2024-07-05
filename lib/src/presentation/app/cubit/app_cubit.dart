@@ -6,7 +6,12 @@ part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit(this._persistentStorage)
-      : super(const AppState(score: 0, level: 0, status: AppStatus.loggedOut)) {
+      : super(const AppState(
+            score: 0,
+            level: 0,
+            status: AppStatus.loggedOut,
+            theme: 'main',
+            language: 'en')) {
     init();
   }
   final PersistentStorage _persistentStorage;
@@ -19,11 +24,29 @@ class AppCubit extends Cubit<AppState> {
     score = await _persistentStorage.read(key: StorageKeys.score) ?? 0;
     String? username =
         await _persistentStorage.readString(key: StorageKeys.username);
+    String theme =
+        await _persistentStorage.readString(key: StorageKeys.theme) ?? 'main';
+    String language =
+        await _persistentStorage.readString(key: StorageKeys.language) ?? 'en';
 
     emit(state.copyWith(
-        level: level,
-        score: score,
-        status: username == null ? AppStatus.loggedOut : AppStatus.loggeIN));
+      language: language,
+      level: level,
+      score: score,
+      theme: theme,
+      status: username == null ? AppStatus.loggedOut : AppStatus.loggeIN,
+    ));
+  }
+
+  void changeLanguage({required String languageCode}) {
+    _persistentStorage.writeString(
+        key: StorageKeys.language, value: languageCode);
+    emit(state.copyWith(language: languageCode));
+  }
+
+  void changeTheme({required String theme}) {
+    _persistentStorage.writeString(key: StorageKeys.theme, value: theme);
+    emit(state.copyWith(theme: theme));
   }
 
   void login({required String username}) {

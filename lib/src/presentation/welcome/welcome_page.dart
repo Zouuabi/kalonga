@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/shared/custome_alert.dart';
+import 'package:kalonga/src/presentation/shared/language_menu.dart';
+import 'package:kalonga/src/presentation/shared/theme_menu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -18,7 +21,7 @@ class _WelcomePageState extends State<WelcomePage> {
     if (_controller.text.isEmpty) {
       customAlert(
         context: context,
-        content: 'Enter a username',
+        content: AppLocalizations.of(context)!.enterUserName,
       );
     } else {
       context.read<AppCubit>().login(username: _controller.text);
@@ -28,20 +31,20 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: const [LanguageMenu(), ThemeMenu()],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Transform.rotate(
               angle: -0.1,
-              child: const Text(
+              child: Text(
                 'Kalonga',
-                style: TextStyle(
-                  color: Color(0xffb4869f),
-                  fontFamily: 'Permanent Marker',
-                  fontSize: 55,
-                  height: 1,
-                ),
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      fontFamily: 'Permanent Marker',
+                    ),
               ),
             ),
             CustomTextField(controller: _controller),
@@ -71,13 +74,11 @@ class PlayButton extends StatelessWidget {
           height: 70,
           child: ElevatedButton(
               onPressed: onPlay,
-              child: const Text(
-                'Play',
-                style: TextStyle(
-                    fontFamily: 'Permanent Marker',
-                    fontSize: 55,
-                    height: 1,
-                    color: Colors.white),
+              child: Text(
+                AppLocalizations.of(context)!.play,
+                style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      fontFamily: 'Permanent Marker',
+                    ),
               ))),
     );
   }
@@ -101,18 +102,6 @@ class CustomTextField extends StatelessWidget {
           width: 300,
           child: TextField(
             controller: _controller,
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge!
-                .copyWith(color: Colors.white),
-            decoration: InputDecoration(
-                hintText: 'Username',
-                hintStyle: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .copyWith(color: Colors.white),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15))),
           )),
     );
   }

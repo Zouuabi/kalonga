@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalonga/src/core/utils/levels.dart';
+import 'package:kalonga/src/utils/levels.dart';
 import 'package:kalonga/src/entities/level.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/core/utils/app_colors.dart';
 import 'package:kalonga/src/presentation/shared/custome_alert.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HowButton extends StatelessWidget {
   const HowButton({
@@ -12,19 +12,16 @@ class HowButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         customAlert(
-            context: context,
-            content: ' USE \n Q ,Z, S D \n keys  To Move Kalonga');
+            context: context, content: AppLocalizations.of(context)!.howTo);
       },
-      child: Container(
-        height: 40,
+      child: const SizedBox(
         width: 40,
-        decoration: const BoxDecoration(
-            // todo : change this color with [AppColors] value
-            shape: BoxShape.circle,
-            color: Color(0xffb4869f)),
-        child: const Icon(
-          Icons.question_mark_rounded,
-          color: AppColors.yellow,
+        height: 40,
+        child: Card(
+          elevation: 3,
+          child: Icon(
+            Icons.question_mark_rounded,
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/shared/custome_alert.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -15,24 +16,33 @@ class SettingsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ListTile(
-            title: const Text('Restart Levels'),
+            title: Text(AppLocalizations.of(context)!.restartLevels),
             trailing: const Icon(Icons.restart_alt_rounded),
             onTap: () {
               customAlert(
                   context: context,
-                  content: 'Are you sure you want to Restart Levels ?',
+                  content: AppLocalizations.of(context)!.restartLevelsAlert,
                   onOkPressed: () {
                     context.read<AppCubit>().restartLevels();
                   });
             },
           ),
           ListTile(
-            title: const Text('Change Theme'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            title: Text(AppLocalizations.of(context)!.secondaryTheme),
+            trailing: Switch(
+                value: context.watch<AppCubit>().state.theme == 'main'
+                    ? false
+                    : true,
+                onChanged: (value) {
+                  if (!value) {
+                    context.read<AppCubit>().changeTheme(theme: 'main');
+                  } else {
+                    context.read<AppCubit>().changeTheme(theme: 'secondary');
+                  }
+                }),
           ),
           ListTile(
-            title: const Text('Change Language'),
+            title: Text(AppLocalizations.of(context)!.changeLanguage),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {},
           ),
@@ -41,12 +51,12 @@ class SettingsPage extends StatelessWidget {
             onPressed: () {
               customAlert(
                   context: context,
-                  content: 'All data would be deleted ! ',
+                  content: AppLocalizations.of(context)!.signOutAlert,
                   onOkPressed: () {
                     context.read<AppCubit>().logout();
                   });
             },
-            child: const Text('Sign Out'),
+            child: Text(AppLocalizations.of(context)!.signOut),
           )
         ],
       ),

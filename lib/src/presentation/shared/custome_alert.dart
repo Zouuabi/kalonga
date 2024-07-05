@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> customAlert(
     {required BuildContext context,
@@ -10,20 +11,19 @@ Future<dynamic> customAlert(
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: const Color(0xffa6b1e1),
-                  borderRadius: BorderRadius.circular(30)),
+            SizedBox(
               width: 300,
               height: 100,
-              child: DefaultTextStyle(
-                style: const TextStyle(color: Colors.black),
-                child: Center(
-                    child: Text(
-                  content,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                )),
+              child: Card(
+                child: DefaultTextStyle(
+                  style: const TextStyle(color: Colors.black),
+                  child: Center(
+                      child: Text(
+                    content,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )),
+                ),
               ),
             ),
             Row(
@@ -33,7 +33,7 @@ Future<dynamic> customAlert(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  label: 'Cancel',
+                  label: AppLocalizations.of(context)!.cancel,
                 ),
                 const SizedBox(width: 20),
                 onOkPressed == null
@@ -43,7 +43,7 @@ Future<dynamic> customAlert(
                           onOkPressed();
                           Navigator.pop(context);
                         },
-                        label: 'Okay',
+                        label: AppLocalizations.of(context)!.okay,
                       ),
               ],
             ),
@@ -62,21 +62,6 @@ class DialogButton extends StatelessWidget {
   final String label;
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-        onPressed: onPressed,
-        child: Container(
-          alignment: Alignment.center,
-          width: 70,
-          height: 40,
-          decoration: const BoxDecoration(
-              color: Color(0xffa6b1e1),
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10))),
-          child: Text(
-            label,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-        ));
+    return ElevatedButton(onPressed: onPressed, child: Text(label));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/core/config/routing/router.dart';
 import 'package:kalonga/src/presentation/shared/custome_alert.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LevelItem extends StatelessWidget {
   const LevelItem({
@@ -18,25 +19,17 @@ class LevelItem extends StatelessWidget {
       onTap: () {
         if (locked) {
           customAlert(
-              context: context,
-              content: 'Level is not unlocked \n pass the previous one');
+              context: context, content: AppLocalizations.of(context)!.locked);
         } else {
           Navigator.of(context).pushNamed(Routes.game, arguments: level);
         }
       },
-      child: Container(
-          decoration: BoxDecoration(
-            color: Colors.teal,
-            borderRadius: BorderRadius.circular(20),
-          ),
+      child: Card(
           child: locked == false
               ? Center(
                   child: Text(
                   'Level $level',
-                  style: const TextStyle(
-                    fontFamily: 'Permanent Marker',
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ))
               : const Icon(
                   Icons.lock_outline,

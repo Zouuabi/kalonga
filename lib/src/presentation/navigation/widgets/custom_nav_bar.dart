@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
@@ -16,13 +17,14 @@ class CustomBottomNavBar extends StatelessWidget {
       height: 55,
       child: BottomNavigationBar(
         iconSize: 20,
-        backgroundColor: const Color(0xffa6b1e1),
         elevation: 20,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.games_outlined), label: 'Play'),
+              icon: const Icon(Icons.games_outlined),
+              label: AppLocalizations.of(context)!.play),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
+              icon: const Icon(Icons.settings),
+              label: AppLocalizations.of(context)!.settings),
         ],
         currentIndex: currentPage,
         onTap: onPageSelected,

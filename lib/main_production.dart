@@ -13,8 +13,11 @@ void main() async {
   Bloc.observer = const Observer();
 
   runApp(
-    MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => serviceLocator<AppCubit>()),
-    ], child: const MyApp()),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => serviceLocator<AppCubit>()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }

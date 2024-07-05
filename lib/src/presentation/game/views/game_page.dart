@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalonga/src/core/utils/app_colors.dart';
-import 'package:kalonga/src/core/utils/app_strings.dart';
-import 'package:kalonga/src/core/utils/image_manager.dart';
+import 'package:kalonga/src/utils/app_strings.dart';
+import 'package:kalonga/src/utils/image_manager.dart';
 import 'package:kalonga/src/entities/level.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/game/bloc/game_bloc.dart';
 import 'package:kalonga/src/presentation/game/widgets/widgets.dart';
+import 'package:kalonga/src/presentation/shared/language_menu.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({
@@ -64,41 +64,20 @@ class GamePage extends StatelessWidget {
     );
   }
 
-  Widget? _buildGame(int index, Level level, int characterPosition) {
+  Widget? _buildGameComponents(int index, Level level, int characterPosition) {
     if (index == characterPosition) {
-      // display Monkey
-      return Image.asset(
-        ImageManager.monkey,
-        fit: BoxFit.cover,
-      );
+      return const Character();
     } else if (level.bananasPositions.contains(index)) {
-      // diplay bananas
-
-      // we check if any hole index equal to any banana position
-      // if so we check we have to display a happyBanana
       if (level.holesPositions.contains(index)) {
-        return Image.asset(
-          ImageManager.happyBanana,
-          fit: BoxFit.cover,
-        );
+        return const HappyBanana();
       }
 
-      return Image.asset(
-        ImageManager.banana,
-        fit: BoxFit.cover,
-      );
+      return const Banana();
     } else if (level.holesPositions.contains(index)) {
-      return Image.asset(
-        ImageManager.hole,
-        fit: BoxFit.cover,
-      );
+      return const Hole();
     } else if (level.borders.contains(index)) {
-      //  display borders
-      // this is already handled by the test in the
-      // of the color in the return of the grid view
-      return null;
+      return const Borderr();
     } else {
-      // empty box ==> nothing in our case
       return null;
     }
   }
@@ -115,13 +94,9 @@ class GamePage extends StatelessWidget {
         itemCount: 81,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            decoration: BoxDecoration(
-                color: state.level.borders.contains(index)
-                    ? const Color(0xff4e4c67)
-                    : null,
-                borderRadius: BorderRadius.circular(10)),
             margin: const EdgeInsets.all(1),
-            child: _buildGame(index, state.level, state.characterPosition),
+            child: _buildGameComponents(
+                index, state.level, state.characterPosition),
           );
         },
       ),
@@ -133,9 +108,21 @@ class GamePage extends StatelessWidget {
     required int level,
   }) {
     return AppBar(
-      backgroundColor: AppColors.scaffoldColor,
       automaticallyImplyLeading: false,
       centerTitle: true,
+      actions: [
+        const LanguageMenu(),
+        Switch(
+            value:
+                context.watch<AppCubit>().state.theme == 'main' ? false : true,
+            onChanged: (value) {
+              if (!value) {
+                context.read<AppCubit>().changeTheme(theme: 'main');
+              } else {
+                context.read<AppCubit>().changeTheme(theme: 'secondary');
+              }
+            }),
+      ],
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -148,7 +135,7 @@ class GamePage extends StatelessWidget {
             '${AppStrings.level} $level',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          const HowButton()
+          const HowButton(),
         ],
       ),
     );
