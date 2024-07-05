@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 
-import 'package:kalonga/src/presentation/game/widgets/level_item.dart';
+import 'package:kalonga/src/presentation/navigation/widgets/level_item.dart';
 import 'package:kalonga/src/core/utils/levels.dart';
 
 class LevelsPage extends StatelessWidget {

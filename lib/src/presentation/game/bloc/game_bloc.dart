@@ -1,32 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalonga/src/data/local.dart';
-import 'package:kalonga/src/entities/level.dart';
 import 'package:kalonga/src/core/utils/levels.dart';
+import 'package:kalonga/src/entities/level.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 
 part 'game_event.dart';
 part 'game_state.dart';
-
-///major hhh todo: a graph algrothim BFS/DFS/A* plays the game in the most effient
-///way
-///a3ml li theb w khalili li theb
-///? el qerd barka gaad yetharek b shih w yehtarem fl border
-///todo: lezm ywalli ydezz banaa if possible
-///todo : if the banana* is in the hole twalli 7ayrana*
-///todo: if the bananans are all in correct places we
-///
-///automatically to the next map w ndhahrou akl qardoun li yachta7
-///todo: we have to calculate the score
-///todo : charcter must be moved by keyboard keys if
-/// we are on desktop
-/// todo: in mobile we have to be able to move kalonga by an analog
-/// (if we are on mobile arrow icons must be invisible)
-/// todo : implement multiple themes (minimum 3 , colors character ...)
-/// todo : for reference we can have a look on legacy kalong via https://oubeid.com
-///
-///
-///
 
 class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc({required this.initialLevel, required this.appCubit})
@@ -46,48 +25,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   }
   final AppCubit appCubit;
   final int initialLevel;
-
-  void _levelUp(Emitter<GameState> emit) {
-    int nextLevelNumber = state.levelNumber + 1;
-
-    appCubit.levelUp();
-
-    if (nextLevelNumber < levels.length) {
-      emit(
-        state.copyWith(
-            characterPosition: levels[nextLevelNumber].characterPosition,
-            level: levels[nextLevelNumber],
-            status: GameStatus.nextLevel,
-            levelNumber: nextLevelNumber,
-            movesNum: 0),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          status: GameStatus.completed,
-        ),
-      );
-    }
-  }
-
-  void _areBananasInHoles(Emitter<GameState> emit) {
-    if (state.level.bananasPositions
-        .every((pos) => state.level.holesPositions.contains(pos))) {
-      appCubit.upDateScore(numberOfMoves: state.movesNum);
-      _levelUp(emit);
-    }
-  }
-
-  void _restart(GameEvent event, Emitter<GameState> emit) {
-    int currentLevel = state.levelNumber;
-    emit(
-      state.copyWith(
-        characterPosition: levels[currentLevel].characterPosition,
-        level: levels[currentLevel],
-        status: GameStatus.restarted,
-      ),
-    );
-  }
 
   /// Handles the MoveLeft event by moving the character left.
   void _moveLeft(GameEvent event, Emitter<GameState> emit) {
@@ -161,5 +98,47 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     bananas.removeAt(banananaIndex);
 
     return bananas;
+  }
+
+  void _levelUp(Emitter<GameState> emit) {
+    int nextLevelNumber = state.levelNumber + 1;
+
+    appCubit.levelUp(level: nextLevelNumber);
+
+    if (nextLevelNumber < levels.length) {
+      emit(
+        state.copyWith(
+            characterPosition: levels[nextLevelNumber].characterPosition,
+            level: levels[nextLevelNumber],
+            status: GameStatus.nextLevel,
+            levelNumber: nextLevelNumber,
+            movesNum: 0),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          status: GameStatus.completed,
+        ),
+      );
+    }
+  }
+
+  void _areBananasInHoles(Emitter<GameState> emit) {
+    if (state.level.bananasPositions
+        .every((pos) => state.level.holesPositions.contains(pos))) {
+      appCubit.upDateScore(numberOfMoves: state.movesNum);
+      _levelUp(emit);
+    }
+  }
+
+  void _restart(GameEvent event, Emitter<GameState> emit) {
+    int currentLevel = state.levelNumber;
+    emit(
+      state.copyWith(
+        characterPosition: levels[currentLevel].characterPosition,
+        level: levels[currentLevel],
+        status: GameStatus.restarted,
+      ),
+    );
   }
 }

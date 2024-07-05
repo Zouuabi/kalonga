@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/core/config/routing/router.dart';
-import 'package:kalonga/src/presentation/game/widgets/widgets.dart';
+import 'package:kalonga/src/presentation/shared/custome_alert.dart';
 
 class LevelItem extends StatelessWidget {
   const LevelItem({
@@ -17,7 +17,7 @@ class LevelItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (locked) {
-          kalongaAlert(
+          customAlert(
               context: context,
               content: 'Level is not unlocked \n pass the previous one');
         } else {

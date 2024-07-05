@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/core/utils/app_colors.dart';
 import 'package:kalonga/src/core/utils/app_strings.dart';
@@ -9,7 +8,6 @@ import 'package:kalonga/src/core/utils/image_manager.dart';
 import 'package:kalonga/src/entities/level.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/game/bloc/game_bloc.dart';
-import 'package:kalonga/src/presentation/game/widgets/character_contollers.dart';
 import 'package:kalonga/src/presentation/game/widgets/widgets.dart';
 
 class GamePage extends StatelessWidget {
@@ -33,30 +31,32 @@ class GamePage extends StatelessWidget {
             level: state.levelNumber,
           ),
           body: SafeArea(
-            child: Column(
-              children: [
-                const SizedBox(height: 50),
-                _game(context, state),
-                Text(' Score : ${context.watch<AppCubit>().state.score}',
-                    style: Theme.of(context).textTheme.headlineMedium),
-                ElevatedButton(
-                    onPressed: () {
-                      context.read<GameBloc>().add(Restart());
-                    },
-                    child: Text(
-                      AppStrings.restart,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )),
-                CharacterControllers(moveUp: () {
-                  context.read<GameBloc>().add(MoveUp());
-                }, moveDown: () {
-                  context.read<GameBloc>().add(MoveDown());
-                }, moveLeft: () {
-                  context.read<GameBloc>().add(MoveLeft());
-                }, moveRight: () {
-                  context.read<GameBloc>().add(MoveRight());
-                }),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _game(context, state),
+                  Text(' Score : ${context.watch<AppCubit>().state.score}',
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                      onPressed: () {
+                        context.read<GameBloc>().add(Restart());
+                      },
+                      child: const Text(
+                        AppStrings.restart,
+                      )),
+                  const SizedBox(height: 20),
+                  CharacterControllers(moveUp: () {
+                    context.read<GameBloc>().add(MoveUp());
+                  }, moveDown: () {
+                    context.read<GameBloc>().add(MoveDown());
+                  }, moveLeft: () {
+                    context.read<GameBloc>().add(MoveLeft());
+                  }, moveRight: () {
+                    context.read<GameBloc>().add(MoveRight());
+                  }),
+                ],
+              ),
             ),
           ),
         );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> kalongaAlert(
+Future<dynamic> customAlert(
     {required BuildContext context,
     required String content,
     VoidCallback? onOkPressed}) {

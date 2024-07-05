@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalonga/src/core/utils/app_colors.dart';
-import 'package:kalonga/src/presentation/game/widgets/how_to_dialog.dart';
+import 'package:kalonga/src/presentation/shared/custome_alert.dart';
 
 class HowButton extends StatelessWidget {
   const HowButton({
@@ -11,7 +11,9 @@ class HowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        kalongaAlert(context: context, content: ' Q Z S D To Move Kalonga');
+        customAlert(
+            context: context,
+            content: ' USE \n Q ,Z, S D \n keys  To Move Kalonga');
       },
       child: Container(
         height: 40,

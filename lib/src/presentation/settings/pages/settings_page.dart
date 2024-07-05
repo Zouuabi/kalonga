@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
-import 'package:kalonga/src/presentation/game/widgets/how_to_dialog.dart';
+import 'package:kalonga/src/presentation/shared/custome_alert.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -18,7 +18,7 @@ class SettingsPage extends StatelessWidget {
             title: const Text('Restart Levels'),
             trailing: const Icon(Icons.restart_alt_rounded),
             onTap: () {
-              kalongaAlert(
+              customAlert(
                   context: context,
                   content: 'Are you sure you want to Restart Levels ?',
                   onOkPressed: () {
@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: 20),
           OutlinedButton(
             onPressed: () {
-              kalongaAlert(
+              customAlert(
                   context: context,
                   content: 'All data would be deleted ! ',
                   onOkPressed: () {

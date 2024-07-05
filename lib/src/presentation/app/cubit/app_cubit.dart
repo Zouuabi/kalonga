@@ -42,13 +42,11 @@ class AppCubit extends Cubit<AppState> {
     emit(state.copyWith(level: 0, score: 0));
   }
 
-  void levelUp() {
-    int newLevel = state.level + 1;
-
-    _persistentStorage.writeInt(
-        key: StorageKeys.attendedLevel, value: newLevel);
-
-    emit(state.copyWith(level: newLevel));
+  void levelUp({required int level}) {
+    if (state.level < level) {
+      _persistentStorage.writeInt(key: StorageKeys.attendedLevel, value: level);
+      emit(state.copyWith(level: level));
+    }
   }
 
   void upDateScore({required int numberOfMoves}) {

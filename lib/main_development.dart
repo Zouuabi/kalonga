@@ -4,7 +4,7 @@ import 'package:kalonga/src/core/config/routing/router.dart';
 import 'package:kalonga/src/core/config/theming/theme.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/injector.dart';
-import 'package:kalonga/src/presentation/navigation/navigation_page.dart';
+import 'package:kalonga/src/presentation/navigation/views/navigation_page.dart';
 
 import 'package:kalonga/src/presentation/state_observer.dart';
 

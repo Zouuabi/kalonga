@@ -5,7 +5,7 @@ import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/game/bloc/game_bloc.dart';
 import 'package:kalonga/src/presentation/game/views/game_page.dart';
 import 'package:kalonga/src/presentation/injector.dart';
-import 'package:kalonga/src/presentation/navigation/navigation_page.dart';
+import 'package:kalonga/src/presentation/navigation/views/navigation_page.dart';
 import 'package:kalonga/src/presentation/welcome/welcome_page.dart';
 
 class Routes {
