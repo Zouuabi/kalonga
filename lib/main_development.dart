@@ -3,8 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/core/config/routing/router.dart';
 import 'package:kalonga/src/core/config/theming/theme.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
+import 'package:kalonga/src/presentation/injector.dart';
 import 'package:kalonga/src/presentation/navigation/navigation_page.dart';
+
+import 'package:kalonga/src/presentation/state_observer.dart';
+
+import 'package:device_preview/device_preview.dart';
 import 'package:kalonga/src/presentation/welcome/welcome_page.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await globalModules();
+  Bloc.observer = const Observer();
+
+  runApp(
+    MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => serviceLocator<AppCubit>()),
+        ],
+        child:
+            DevicePreview(enabled: true, builder: (context) => const MyApp())),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -15,6 +35,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) => MaterialApp(
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         restorationScopeId: 'kalonga',
         debugShowCheckedModeBanner: false,
         title: 'Kalonga',

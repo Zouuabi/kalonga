@@ -11,8 +11,7 @@ class HowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        infoDialog(context,
-            'Move The Monkey Using Arrow Keys\nTry To Put Bananas In The Holes');
+        kalongaAlert(context: context, content: ' Q Z S D To Move Kalonga');
       },
       child: Container(
         height: 40,

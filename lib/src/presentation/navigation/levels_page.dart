@@ -11,21 +11,22 @@ class LevelsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
         return Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.1),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: width * 0.03,
-                mainAxisSpacing: width * 0.03,
-              ),
-              itemCount: levels.length,
-              itemBuilder: (context, index) => LevelItem(
-                  level: index, locked: state.level >= index ? false : true),
-            ));
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.sizeOf(context).width * 0.1),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: MediaQuery.sizeOf(context).width > 600 ? 3 : 2,
+              crossAxisSpacing: 50,
+              mainAxisSpacing: 50,
+            ),
+            itemCount: levels.length,
+            itemBuilder: (context, index) => LevelItem(
+                level: index, locked: state.level >= index ? false : true),
+          ),
+        );
       },
     );
   }

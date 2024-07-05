@@ -14,10 +14,12 @@ class LevelItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         if (locked) {
-          infoDialog(context, 'Level is not unlocked \n pass the previous one');
+          kalongaAlert(
+              context: context,
+              content: 'Level is not unlocked \n pass the previous one');
         } else {
           Navigator.of(context).pushNamed(Routes.game, arguments: level);
         }

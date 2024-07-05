@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> infoDialog(BuildContext context, String message) {
+Future<dynamic> kalongaAlert(
+    {required BuildContext context,
+    required String content,
+    VoidCallback? onOkPressed}) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -17,29 +20,63 @@ Future<dynamic> infoDialog(BuildContext context, String message) {
                 style: const TextStyle(color: Colors.black),
                 child: Center(
                     child: Text(
-                  message,
-                  style:
-                      const TextStyle(fontSize: 12, fontFamily: 'Silkscreen'),
+                  content,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 )),
               ),
             ),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    width: 70,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                        color: Color(0xffa6b1e1),
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10))),
-                    child: const Icon(
-                      Icons.check,
-                      color: Color(0xff6d597a),
-                    ))),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DialogButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  label: 'Cancel',
+                ),
+                const SizedBox(width: 20),
+                onOkPressed == null
+                    ? const SizedBox.shrink()
+                    : DialogButton(
+                        onPressed: () {
+                          onOkPressed();
+                          Navigator.pop(context);
+                        },
+                        label: 'Okay',
+                      ),
+              ],
+            ),
           ],
         );
       });
+}
+
+class DialogButton extends StatelessWidget {
+  const DialogButton({
+    super.key,
+    required this.onPressed,
+    required this.label,
+  });
+  final VoidCallback onPressed;
+  final String label;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+        onPressed: onPressed,
+        child: Container(
+          alignment: Alignment.center,
+          width: 70,
+          height: 40,
+          decoration: const BoxDecoration(
+              color: Color(0xffa6b1e1),
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10))),
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+        ));
+  }
 }

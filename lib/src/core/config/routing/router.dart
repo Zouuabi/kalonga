@@ -20,13 +20,13 @@ class RouteGenerator {
       // login screen
       case Routes.welcome:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const WelcomeScreen();
+          return const WelcomePage();
         });
 
       /// Navigation screeen
       case Routes.main:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const Navigation();
+          return const NavigationPage();
         });
 
       // navigate to a specific level (game)

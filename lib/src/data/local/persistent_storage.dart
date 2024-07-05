@@ -16,9 +16,27 @@ class PersistentStorage implements Storage {
   }
 
   @override
-  Future<void> write({required String key, required int value}) async {
+  Future<String?> readString({required String key}) async {
+    try {
+      return _sharedPreferences.getString(key);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(StorageException(error), stackTrace);
+    }
+  }
+
+  @override
+  Future<void> writeInt({required String key, required int value}) async {
     try {
       await _sharedPreferences.setInt(key, value);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(StorageException(error), stackTrace);
+    }
+  }
+
+  @override
+  Future<void> writeString({required String key, required String value}) async {
+    try {
+      await _sharedPreferences.setString(key, value);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(StorageException(error), stackTrace);
     }
