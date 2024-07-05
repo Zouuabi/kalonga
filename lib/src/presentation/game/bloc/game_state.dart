@@ -10,25 +10,26 @@ enum GameStatus {
 }
 
 class GameState extends Equatable {
+  const GameState(
+      {required this.characterPosition,
+      required this.level,
+      required this.status,
+      required this.levelNumber,
+      required this.movesNum});
   final int characterPosition;
   final Level level;
   final GameStatus status;
   final int levelNumber;
+  final int movesNum;
 
-  const GameState({
-    required this.characterPosition,
-    required this.level,
-    required this.status,
-    required this.levelNumber,
-  });
-
-  GameState copyWith({
-    int? characterPosition,
-    Level? level,
-    GameStatus? status,
-    int? levelNumber,
-  }) {
+  GameState copyWith(
+      {int? characterPosition,
+      Level? level,
+      GameStatus? status,
+      int? levelNumber,
+      int? movesNum}) {
     return GameState(
+      movesNum: movesNum ?? this.movesNum,
       characterPosition: characterPosition ?? this.characterPosition,
       level: level ?? this.level,
       status: status ?? this.status,

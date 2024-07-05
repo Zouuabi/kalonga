@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 
-import 'package:kalonga/src/presentation/home/bloc/game_bloc.dart';
-import 'package:kalonga/src/presentation/home/widgets/level_item.dart';
-import 'package:kalonga/src/utils/levels.dart';
+import 'package:kalonga/src/presentation/game/widgets/level_item.dart';
+import 'package:kalonga/src/core/utils/levels.dart';
 
 class LevelsPage extends StatelessWidget {
   const LevelsPage({super.key});
@@ -12,7 +12,7 @@ class LevelsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
-    return BlocBuilder<GameBloc, GameState>(
+    return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
         return Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.1),
@@ -24,8 +24,7 @@ class LevelsPage extends StatelessWidget {
               ),
               itemCount: levels.length,
               itemBuilder: (context, index) => LevelItem(
-                  level: index,
-                  locked: state.levelNumber >= index ? false : true),
+                  level: index, locked: state.level >= index ? false : true),
             ));
       },
     );

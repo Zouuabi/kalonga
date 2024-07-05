@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/utils/app_colors.dart';
-import 'package:kalonga/src/presentation/home/widgets/how_to_dialog.dart';
+import 'package:kalonga/src/core/utils/app_colors.dart';
+import 'package:kalonga/src/presentation/game/widgets/how_to_dialog.dart';
 
 class HowButton extends StatelessWidget {
   const HowButton({

@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kalonga/src/core/utils/app_colors.dart';
+import 'package:kalonga/src/core/utils/app_strings.dart';
+import 'package:kalonga/src/core/utils/image_manager.dart';
 import 'package:kalonga/src/entities/level.dart';
-import 'package:kalonga/src/presentation/home/bloc/game_bloc.dart';
-import 'package:kalonga/src/presentation/home/widgets/character_contollers.dart';
-import 'package:kalonga/src/presentation/home/widgets/widgets.dart';
-import 'package:kalonga/src/utils/app_colors.dart';
-import 'package:kalonga/src/utils/app_strings.dart';
-import 'package:kalonga/src/utils/image_manager.dart';
+import 'package:kalonga/src/presentation/game/bloc/game_bloc.dart';
+import 'package:kalonga/src/presentation/game/widgets/character_contollers.dart';
+import 'package:kalonga/src/presentation/game/widgets/widgets.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({
@@ -18,60 +19,48 @@ class GamePage extends StatelessWidget {
   static const String id = 'gamepage';
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GameBloc, GameState>(listener: (context, state) {
-      if (state.status == GameStatus.nextLevel) {
-        showDialog(
+    return BlocConsumer<GameBloc, GameState>(
+      listener: (context, state) {
+        if (state.status == GameStatus.nextLevel) {
+          celebrateLevelUp(context: context);
+        }
+      },
+      builder: (contex, state) {
+        return Scaffold(
+          appBar: _appBar(
             context: context,
-            barrierDismissible: false,
-            builder: (context) {
-              return Container(
-                alignment: Alignment.bottomCenter,
-                child: Image.asset(ImageManager.happyMonkey),
-              );
-            });
-        Timer(
-          const Duration(seconds: 2),
-          () {
-            Navigator.of(context).pop();
-          },
-        );
-      }
-      context.read<GameBloc>().add(Check());
-    }, builder: (contex, state) {
-      return Scaffold(
-        appBar: _appBar(
-          context: context,
-          level: state.levelNumber,
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 50),
-              _game(context, state),
-              Text(' Score : ${14654}',
-                  style: Theme.of(context).textTheme.headlineMedium),
-              ElevatedButton(
-                  onPressed: () {
-                    context.read<GameBloc>().add(Restart());
-                  },
-                  child: Text(
-                    AppStrings.restart,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  )),
-              CharacterControllers(moveUp: () {
-                context.read<GameBloc>().add(MoveUp());
-              }, moveDown: () {
-                context.read<GameBloc>().add(MoveDown());
-              }, moveLeft: () {
-                context.read<GameBloc>().add(MoveLeft());
-              }, moveRight: () {
-                context.read<GameBloc>().add(MoveRight());
-              }),
-            ],
+            level: state.levelNumber,
           ),
-        ),
-      );
-    });
+          body: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 50),
+                _game(context, state),
+                Text(' Score : ${state.movesNum}',
+                    style: Theme.of(context).textTheme.headlineMedium),
+                ElevatedButton(
+                    onPressed: () {
+                      context.read<GameBloc>().add(Restart());
+                    },
+                    child: Text(
+                      AppStrings.restart,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    )),
+                CharacterControllers(moveUp: () {
+                  context.read<GameBloc>().add(MoveUp());
+                }, moveDown: () {
+                  context.read<GameBloc>().add(MoveDown());
+                }, moveLeft: () {
+                  context.read<GameBloc>().add(MoveLeft());
+                }, moveRight: () {
+                  context.read<GameBloc>().add(MoveRight());
+                }),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget? _buildGame(int index, Level level, int characterPosition) {
@@ -163,4 +152,22 @@ class GamePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void celebrateLevelUp({required BuildContext context}) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Container(
+          alignment: Alignment.bottomCenter,
+          child: Image.asset(ImageManager.happyMonkey),
+        );
+      });
+  Timer(
+    const Duration(seconds: 2),
+    () {
+      Navigator.of(context).pop();
+    },
+  );
 }

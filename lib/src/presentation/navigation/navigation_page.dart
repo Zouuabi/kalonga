@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/presentation/home/views/leader_board_page.dart';
-import 'package:kalonga/src/presentation/home/views/levels_page.dart';
+import 'package:kalonga/src/presentation/navigation/leader_board_page.dart';
+import 'package:kalonga/src/presentation/navigation/levels_page.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});

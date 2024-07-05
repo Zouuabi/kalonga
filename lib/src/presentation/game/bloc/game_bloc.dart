@@ -2,7 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/data/local.dart';
 import 'package:kalonga/src/entities/level.dart';
-import 'package:kalonga/src/utils/levels.dart';
+import 'package:kalonga/src/core/utils/levels.dart';
+import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 
 part 'game_event.dart';
 part 'game_state.dart';
@@ -23,25 +24,28 @@ part 'game_state.dart';
 /// (if we are on mobile arrow icons must be invisible)
 /// todo : implement multiple themes (minimum 3 , colors character ...)
 /// todo : for reference we can have a look on legacy kalong via https://oubeid.com
-
+///
+///
+///
+// 1000 * (0.2 * (currentLevel + 1)) - numberOfMoves
 class GameBloc extends Bloc<GameEvent, GameState> {
   final Storage persistentStorage;
-  GameBloc({required this.persistentStorage})
+  final AppCubit appCubit;
+  GameBloc({required this.persistentStorage, required this.appCubit})
       : super(
           GameState(
-            characterPosition: levels[0].characterPosition,
-            level: levels[0],
-            status: GameStatus.initial,
-            levelNumber: 0,
-          ),
+              characterPosition: levels[0].characterPosition,
+              level: levels[0],
+              status: GameStatus.initial,
+              levelNumber: 0,
+              movesNum: 0),
         ) {
-    // Registering event handlers
     on<MoveLeft>(_moveLeft);
     on<MoveRight>(_moveRight);
     on<MoveUp>(_moveUp);
     on<MoveDown>(_moveDown);
     on<Restart>(_restart);
-    on<Check>(_areBananasInHoles);
+
     on<LevelChange>(_changeLevel);
   }
 
@@ -54,18 +58,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         status: GameStatus.changeLevel));
   }
 
-  void _moveToNextLevel(Emitter<GameState> emit) {
+  void _levelUp(Emitter<GameState> emit) {
     int nextLevelNumber = state.levelNumber + 1;
     persistentStorage.write(
         key: StorageKeys.attendedLevel, value: nextLevelNumber);
     if (nextLevelNumber < levels.length) {
       emit(
         state.copyWith(
-          characterPosition: levels[nextLevelNumber].characterPosition,
-          level: levels[nextLevelNumber],
-          status: GameStatus.nextLevel,
-          levelNumber: nextLevelNumber,
-        ),
+            characterPosition: levels[nextLevelNumber].characterPosition,
+            level: levels[nextLevelNumber],
+            status: GameStatus.nextLevel,
+            levelNumber: nextLevelNumber,
+            movesNum: 0),
       );
     } else {
       emit(
@@ -76,10 +80,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _areBananasInHoles(GameEvent event, Emitter<GameState> emit) {
+  void _areBananasInHoles(Emitter<GameState> emit) {
     if (state.level.bananasPositions
         .every((pos) => state.level.holesPositions.contains(pos))) {
-      _moveToNextLevel(emit);
+      _levelUp(emit);
     }
   }
 
@@ -131,10 +135,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           return;
         }
       }
+
       emit(state.copyWith(
+          movesNum: state.movesNum + 1,
           status: GameStatus.characterMoved,
           characterPosition: nextPosition,
-          level: state.level.copyWith(bananasPositions: newBananasPositons)));
+          level: state.level.copyWith(
+            bananasPositions: newBananasPositons,
+          )));
+      _areBananasInHoles(emit);
     }
   }
 

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kalonga/src/presentation/home/views/game_page.dart';
-import 'package:kalonga/src/presentation/home/views/navigation_page.dart';
-import 'package:kalonga/src/presentation/welcome/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kalonga/src/data/local.dart';
+import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
+import 'package:kalonga/src/presentation/game/bloc/game_bloc.dart';
+import 'package:kalonga/src/presentation/game/views/game_page.dart';
+import 'package:kalonga/src/presentation/injector.dart';
+import 'package:kalonga/src/presentation/navigation/navigation_page.dart';
+import 'package:kalonga/src/presentation/welcome/welcome_page.dart';
 
 class Routes {
   static const String welcome = "/welcome";
@@ -27,7 +32,16 @@ class RouteGenerator {
       // navigate to a specific level (game)
       case Routes.game:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return const GamePage();
+          return MultiBlocProvider(providers: [
+            BlocProvider(
+                create: (context) =>
+                    AppCubit(serviceLocator<PersistentStorage>())),
+            BlocProvider<GameBloc>(
+              create: (context) => GameBloc(
+                  persistentStorage: serviceLocator<PersistentStorage>(),
+                  appCubit: serviceLocator<AppCubit>()),
+            ),
+          ], child: const GamePage());
         });
 
       default:

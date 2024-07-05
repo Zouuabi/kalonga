@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kalonga/src/config/routing/router.dart';
-import 'package:kalonga/src/presentation/home/bloc/game_bloc.dart';
-import 'package:kalonga/src/presentation/home/widgets/widgets.dart';
+import 'package:kalonga/src/core/config/routing/router.dart';
+import 'package:kalonga/src/presentation/game/widgets/widgets.dart';
 
 class LevelItem extends StatelessWidget {
   const LevelItem({
@@ -21,7 +19,6 @@ class LevelItem extends StatelessWidget {
         if (locked) {
           infoDialog(context, 'Level is not unlocked \n pass the previous one');
         } else {
-          context.read<GameBloc>().add(LevelChange(toLevel: level));
           Navigator.of(context).pushNamed(Routes.game);
         }
       },
