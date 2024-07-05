@@ -1,0 +1,19 @@
+{
+  "language" : "Français",
+  "play" : "Jouer",
+  "mainLanguage" :"Principale",
+  "secondaryLanguage"  : "Secondaire",
+  "cancel" : "Annuler",
+  "okay" : "Ok",
+  "enterUserName":"Entrer un nom d'utilisateur",
+  "settings": "Paramèttres",
+  "restartLevels":"Redémarrer les niveaux" ,
+  "restartLevelsAlert" :"Êtes-vous sûr ?",
+    "secondaryTheme": "Thème Secondaire",
+    "changeLanguage" : "Changer le Language",
+    "signOut" :"Se Déconnecter",
+    "signOutAlert": "Tous vos données vont etre supprimer",
+    "locked":"Verrouillée",
+    "howTo" : "Utilisier les touches \n Q, Z, S D \n pour déplacer Kalonga"
+
+}

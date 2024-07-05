@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Observer extends BlocObserver {
@@ -9,12 +10,16 @@ class Observer extends BlocObserver {
     Transition<dynamic, dynamic> transition,
   ) {
     super.onTransition(bloc, transition);
-    print(transition);
+    if (kDebugMode) {
+      print(transition);
+    }
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    print(error);
+    if (kDebugMode) {
+      print(error);
+    }
     super.onError(bloc, error, stackTrace);
   }
 }

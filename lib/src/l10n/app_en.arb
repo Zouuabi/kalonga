@@ -1,0 +1,27 @@
+{
+  "language" : "English",
+  "@language" : {
+    "description": "the current Language"
+  },
+
+  "play" :"Play",
+  "@play": {
+    "description" : "Play Button Text"  },
+    "mainLanguage" :"Main",
+    "secondaryLanguage" :"Secondary",
+    "cancel" : "Cancel",
+    "okay" : "Okay",
+    "enterUserName":"Enter Username",
+    "settings": "Settings",
+    "restartLevels":"Restart Levels" ,
+    "restartLevelsAlert" :"Are you sure you want to Restart Levels ?",
+    "secondaryTheme": "Secondary Theme",
+    "changeLanguage" : "Change Language",
+    "signOut": "Sign out",
+    "signOutAlert": "All data would be deleted ! ",
+    "locked" : "Locked",
+    "howTo":"USE \n Q ,Z, S D \n keys  To Move Kalonga"
+
+
+    
+}

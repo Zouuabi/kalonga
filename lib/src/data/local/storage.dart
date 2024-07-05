@@ -1,7 +1,9 @@
 abstract interface class Storage {
-  Future<String?> read({required String key});
+  Future<int?> read({required String key});
+  Future<String?> readString({required String key});
 
-  Future<void> write({required String key, required int value});
+  Future<void> writeInt({required String key, required int value});
+  Future<void> writeString({required String key, required String value});
 
   Future<void> delete({required String key});
 
