@@ -7,6 +7,7 @@ import 'package:kalonga/src/core/utils/app_colors.dart';
 import 'package:kalonga/src/core/utils/app_strings.dart';
 import 'package:kalonga/src/core/utils/image_manager.dart';
 import 'package:kalonga/src/entities/level.dart';
+import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/game/bloc/game_bloc.dart';
 import 'package:kalonga/src/presentation/game/widgets/character_contollers.dart';
 import 'package:kalonga/src/presentation/game/widgets/widgets.dart';
@@ -36,7 +37,7 @@ class GamePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 50),
                 _game(context, state),
-                Text(' Score : ${state.movesNum}',
+                Text(' Score : ${context.watch<AppCubit>().state.score}',
                     style: Theme.of(context).textTheme.headlineMedium),
                 ElevatedButton(
                     onPressed: () {

@@ -27,17 +27,15 @@ part 'game_state.dart';
 ///
 ///
 ///
-// 1000 * (0.2 * (currentLevel + 1)) - numberOfMoves
+
 class GameBloc extends Bloc<GameEvent, GameState> {
-  final Storage persistentStorage;
-  final AppCubit appCubit;
-  GameBloc({required this.persistentStorage, required this.appCubit})
+  GameBloc({required this.initialLevel, required this.appCubit})
       : super(
           GameState(
-              characterPosition: levels[0].characterPosition,
-              level: levels[0],
+              characterPosition: levels[initialLevel].characterPosition,
+              level: levels[initialLevel],
               status: GameStatus.initial,
-              levelNumber: 0,
+              levelNumber: initialLevel,
               movesNum: 0),
         ) {
     on<MoveLeft>(_moveLeft);
@@ -45,23 +43,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<MoveUp>(_moveUp);
     on<MoveDown>(_moveDown);
     on<Restart>(_restart);
-
-    on<LevelChange>(_changeLevel);
   }
-
-  void _changeLevel(GameEvent event, Emitter<GameState> emit) {
-    event as LevelChange;
-    emit(state.copyWith(
-        characterPosition: levels[event.toLevel].characterPosition,
-        level: levels[event.toLevel],
-        levelNumber: event.toLevel,
-        status: GameStatus.changeLevel));
-  }
+  final AppCubit appCubit;
+  final int initialLevel;
 
   void _levelUp(Emitter<GameState> emit) {
     int nextLevelNumber = state.levelNumber + 1;
-    persistentStorage.write(
-        key: StorageKeys.attendedLevel, value: nextLevelNumber);
+
+    appCubit.levelUp();
+
     if (nextLevelNumber < levels.length) {
       emit(
         state.copyWith(
@@ -83,6 +73,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void _areBananasInHoles(Emitter<GameState> emit) {
     if (state.level.bananasPositions
         .every((pos) => state.level.holesPositions.contains(pos))) {
+      appCubit.upDateScore(numberOfMoves: state.movesNum);
       _levelUp(emit);
     }
   }

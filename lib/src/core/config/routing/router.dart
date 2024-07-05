@@ -32,16 +32,12 @@ class RouteGenerator {
       // navigate to a specific level (game)
       case Routes.game:
         return MaterialPageRoute(builder: (BuildContext ctx) {
-          return MultiBlocProvider(providers: [
-            BlocProvider(
-                create: (context) =>
-                    AppCubit(serviceLocator<PersistentStorage>())),
-            BlocProvider<GameBloc>(
-              create: (context) => GameBloc(
-                  persistentStorage: serviceLocator<PersistentStorage>(),
-                  appCubit: serviceLocator<AppCubit>()),
-            ),
-          ], child: const GamePage());
+          return BlocProvider<GameBloc>(
+              create: (ctx) => GameBloc(
+                    initialLevel: settings.arguments as int,
+                    appCubit: serviceLocator<AppCubit>(),
+                  ),
+              child: const GamePage());
         });
 
       default:

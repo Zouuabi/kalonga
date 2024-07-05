@@ -19,7 +19,7 @@ class LevelItem extends StatelessWidget {
         if (locked) {
           infoDialog(context, 'Level is not unlocked \n pass the previous one');
         } else {
-          Navigator.of(context).pushNamed(Routes.game);
+          Navigator.of(context).pushNamed(Routes.game, arguments: level);
         }
       },
       child: Container(

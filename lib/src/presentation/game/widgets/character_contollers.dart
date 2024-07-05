@@ -18,7 +18,6 @@ class CharacterControllers extends StatelessWidget {
     return Focus(
       autofocus: true,
       onKeyEvent: (node, event) {
-        print(event.character);
         switch (event.character) {
           case 'z':
             moveUp();

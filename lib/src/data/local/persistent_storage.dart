@@ -7,9 +7,9 @@ class PersistentStorage implements Storage {
   final SharedPreferences _sharedPreferences;
 
   @override
-  Future<String?> read({required String key}) async {
+  Future<int?> read({required String key}) async {
     try {
-      return _sharedPreferences.getString(key);
+      return _sharedPreferences.getInt(key);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(StorageException(error), stackTrace);
     }
