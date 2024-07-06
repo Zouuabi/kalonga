@@ -35,7 +35,9 @@ class SettingsPage extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context)!.changeLanguage),
             trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {},
+            onTap: () {
+              _showLanguageDialog(context);
+            },
           ),
           const SizedBox(height: 20),
           OutlinedButton(
@@ -51,6 +53,44 @@ class SettingsPage extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  void _showLanguageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(
+            width: 300,
+            child: Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    title: const Text('English'),
+                    onTap: () {
+                      context
+                          .read<AppCubit>()
+                          .changeLanguage(languageCode: 'en');
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Français'),
+                    onTap: () {
+                      context
+                          .read<AppCubit>()
+                          .changeLanguage(languageCode: 'fr');
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ]);
+      },
     );
   }
 }
