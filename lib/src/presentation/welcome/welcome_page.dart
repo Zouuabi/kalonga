@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kalonga/src/presentation/app/cubit/app_cubit.dart';
 import 'package:kalonga/src/presentation/shared/custome_alert.dart';
 import 'package:kalonga/src/presentation/shared/language_menu.dart';
-import 'package:kalonga/src/presentation/shared/theme_menu.dart';
+import 'package:kalonga/src/presentation/shared/theme_toggler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: const [LanguageMenu(), ThemeMenu()],
+        actions: const [LanguageMenu(), ThemeToggler()],
       ),
       body: Center(
         child: Column(
