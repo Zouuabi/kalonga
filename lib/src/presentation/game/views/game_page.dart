@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kalonga/src/presentation/shared/theme_toggler.dart';
 import 'package:kalonga/src/utils/app_strings.dart';
 import 'package:kalonga/src/utils/image_manager.dart';
 import 'package:kalonga/src/entities/level.dart';
@@ -110,19 +111,7 @@ class GamePage extends StatelessWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
-      actions: [
-        const LanguageMenu(),
-        Switch(
-            value:
-                context.watch<AppCubit>().state.theme == 'main' ? false : true,
-            onChanged: (value) {
-              if (!value) {
-                context.read<AppCubit>().changeTheme(theme: 'main');
-              } else {
-                context.read<AppCubit>().changeTheme(theme: 'secondary');
-              }
-            }),
-      ],
+      actions: const [LanguageMenu(), ThemeToggler()],
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
